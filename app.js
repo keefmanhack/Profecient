@@ -2,7 +2,8 @@ var express 		= require("express"),
     app     		= express(),
     mongoose		= require('mongoose'),
     passport		= require('passport'),
-    LocalStrategy	= require('passport-local');
+    LocalStrategy	= require('passport-local'),
+    bodyParser		= require('body-parser');
 
 
 
@@ -28,6 +29,8 @@ app.use(require("express-session")({
 
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(bodyParser.urlencoded({extended:true}));
+
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
@@ -46,6 +49,40 @@ app.get("/", function(req, res){
 });
 
 
+//login and signup routes
+app.get("/signup", function(req, res){
+	res.render("signup");
+});
+
+app.post("/signup", function(req, res){
+	
+	var newUser = new User({username: req.body.username});
+	User.register(newUser, req.body.password, function(err, user){
+		if(err){
+			res.redirect("back");
+		}
+		passport.authenticate('local')(req, res, function(){
+			res.redirect("/home");
+		});
+	});
+ });
+
+app.get("/login", function(req, res){
+	res.render("login");
+});
+
+app.post("/login", passport.authenticate("local", {
+	successRedirect: "/home",
+	failureRedirect: "back"
+}), function(req, res){
+
+});
+
+
+
+app.get("/home", function(req, res){
+	res.render("home");
+});
 
 app.listen(3000, 'localhost', function(){
 	console.log("Server started on port 3000");
