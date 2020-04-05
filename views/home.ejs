@@ -3,4 +3,21 @@
 <h1>Welcome home baby</h1>
 
 
+
+<ul>
+	<%semesters.forEach(function(semester){%>
+		<li>
+			<%=semester.classes.length%>
+		</li>
+		<ul>
+			<%semester.classes.forEach(function(o){%>
+				<li>
+					<%=o.name%> - <strong><%=o.instructor%></strong> - <em><%=o.location%></em>
+				</li>
+			<%})%>
+		</ul>
+	<%})%>
+</ul>
+
+
 <%- include("../partials/footer") %>

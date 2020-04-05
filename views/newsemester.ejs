@@ -1,0 +1,18 @@
+<%- include("../partials/header") %>
+
+<h1>Create a new semester</h1>
+
+<form action="/newsemester" method="POST">
+	<input type="text" name="semesterName" placeholder="Name">
+	<button class="btn btn-primary" type="button">New Class</button>
+	<button class="btn btn-success">Complete</button>
+	<hr>
+	<input type="text" name="class[name]" placeholder="Course Name">
+	<input type="text" name="class[instructor]" placeholder="Instructor">
+	<input type="text" name="class[location]" placeholder="Location">
+	<!-- Add inputs for day and time later -->
+</form>
+
+
+<script type="text/javascript" src="/scripts/newsemester.js"></script>
+<%- include("../partials/footer") %>
