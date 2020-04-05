@@ -8,8 +8,7 @@ var express 		= require("express"),
 
 
 var User 			= require("./models/user"),
-	Semester		= require("./models/semester"),
-	Class 			=require("./models/class");
+	Semester		= require("./models/semester");
 
 
 
