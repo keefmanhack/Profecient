@@ -15,6 +15,27 @@ var semesterSchema = new mongoose.Schema({
 			instructor: String,
 			location: String
 		}
+	],
+	days: [
+		{
+			monday: Boolean,
+			tuesday: Boolean,
+			wednesday: Boolean,
+			thursday: Boolean,
+			friday: Boolean,
+			saturday: Boolean,
+			sunday: Boolean
+		}
+	],
+	time: [
+		{
+			startHour: Number,
+			startMinute: Number,
+			startAMPM: String,
+			endHour: Number,
+			endMinute: Number,
+			endAMPM: String
+		}
 	]
 });
 

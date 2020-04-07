@@ -56,20 +56,12 @@ app.get("/remove", function(req, res){
 			console.log(err);
 		}else{
 			console.log("Removed all semesters");
-		}
-
-	});
-
-	Class.remove({}, function(err){
-		if(err){
-			console.log(err);
-		}else{
-			console.log("Removed all classes");
 			res.redirect("/home");
 		}
 
 	});
-})
+
+});
 
 
 //login and signup routes
@@ -108,7 +100,6 @@ app.get("/home", isLoggedIn, function(req, res){
 		if(err){
 			console.log(err);
 		}else{
-			console.log(allSemesters)
 			res.render("home", {semesters: allSemesters});
 		}
 	});
@@ -119,7 +110,7 @@ app.get("/newsemester", isLoggedIn, function(req, res){
 });
 
 app.post("/newsemester", isLoggedIn, function(req, res){
-	//var ids = createClasses(req.body);
+
 	var semesterID;
 	var newSemester = {
 		name: req.body.semesterName,
@@ -127,20 +118,18 @@ app.post("/newsemester", isLoggedIn, function(req, res){
 			id: req.user._id,
 			username: req.user.username
 		},
-		classes: createClasses(req.body)
+		classes: createClasses(req.body),
+		days: createDays(req.body),
+		time: createTime(req.body)
 	};
 
 	Semester.create(newSemester, function(err, newlyCreatedSemester){
 			if(err){
 				console.log(err);
 			}else{
-				console.log(newlyCreatedSemester);
+				res.redirect("/home");
 			}
 		});
-
-
-	res.redirect("/home");
-	
 });
 
 function isLoggedIn(req, res, next){
@@ -167,6 +156,52 @@ function createClasses(body){
 		return classes;
 	}else{
 		return body.class;
+	}
+}
+
+function createDays(body){
+	var week = [];
+	var newWeek = {};
+	if(Array.isArray(body.class.name)){
+		for(var i =0; i < body.class.name.length; i++){
+			newWeek =
+				{
+					monday: body.days.monday[i],
+					tuesday: body.days.tuesday[i],
+					wednesday: body.days.wednesday[i],
+					thursday: body.days.thursday[i],
+					friday: body.days.friday[i],
+					saturday: body.days.saturday[i],
+					sunday: body.days.sunday[i]
+
+				};
+			week.push(newWeek);
+		}
+		return week;
+	}else{
+		return body.days;
+	}
+}
+
+function createTime(body){
+	var time = [];
+	var newTime = {};
+	if(Array.isArray(body.class.name)){
+		for(var i =0; i < body.class.name.length; i++){
+			newTime =
+				{
+					startHour: body.time.startHour[i],
+					startMinute: body.time.startMinute[i],
+					startAMPM: body.time.startAMPM[i],
+					endHour: body.time.endHour[i],
+					endMinute: body.time.endMinute[i],
+					endAMPM: body.time.endAMPM[i]
+				};
+			time.push(newTime);
+		}
+		return time;
+	}else{
+		return body.time;
 	}
 }
 

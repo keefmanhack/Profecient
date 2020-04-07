@@ -1,5 +1,7 @@
 <%- include("../partials/header") %>
 
+
+
 <h1>Create a new semester</h1>
 
 <form action="/newsemester" method="POST">
@@ -10,7 +12,46 @@
 	<input type="text" name="class[name]" placeholder="Course Name">
 	<input type="text" name="class[instructor]" placeholder="Instructor">
 	<input type="text" name="class[location]" placeholder="Location">
-	<!-- Add inputs for day and time later -->
+	<div>
+		<input class=check type="checkbox" value="true" name="days[monday]">
+		<input class=hid type="hidden" value="false" name="days[monday]">
+		<label>Monday</label>
+		<input class=check type="checkbox" value="true" name="days[tuesday]">
+		<input class=hid type="hidden" value="false" name="days[tuesday]">
+		<label>Tuesday</label>
+		<input class=check type="checkbox" value="true" name="days[wednesday]">
+		<input class=hid type="hidden" value="false" name="days[wednesday]">
+		<label>Wednesday</label>
+		<input class=check type="checkbox" value="true" name="days[thursday]">
+		<input class=hid type="hidden" value="false" name="days[thursday]">
+		<label>Thursday</label>
+		<input class=check type="checkbox" value="true" name="days[friday]">
+		<input class=hid type="hidden" value="false" name="days[friday]">
+		<label>Friday</label>
+		<input class=check type="checkbox" value="true" name="days[saturday]">
+		<input class=hid type="hidden" value="false" name="days[saturday]">
+		<label>Saturday</label>
+		<input class=check type="checkbox" value="true" name="days[sunday]">
+		<input class=hid type="hidden" value="false" name="days[sunday]">
+		<label>Sunday</label>
+	</div>
+	<label>Start Time</label>
+	<input type="number" min="1" max="12" name="time[startHour]">
+	<label>:</label>
+	<input type="number" min="0" max="60" name="time[startMinute]">
+	<select name="time[startAMPM]">
+		<option value="AM">AM</option>
+		<option value="PM">PM</option>
+	</select>
+	<label>End Time</label>
+	<input type="number" min="1" max="12" name="time[endHour]">
+	<label>:</label>
+	<input type="number" min="0" max="60" name="time[endMinute]">
+	<select name="time[endAMPM]">
+		<option value="AM">AM</option>
+		<option value="PM">PM</option>
+	</select>
+	
 </form>
 
 

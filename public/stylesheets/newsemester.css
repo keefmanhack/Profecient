@@ -1,0 +1,17 @@
+.weekday{
+	background-color: #66ccff;
+	width: 100px;
+	height: 100px;
+}
+
+.weekdayselected{
+	background-color: #1e7eba;
+}
+
+.weekdayhover{
+	background-color: #8ad1ff;
+}
+
+button:focus{
+	outline: 0;
+}
