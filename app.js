@@ -132,6 +132,25 @@ app.post("/newsemester", isLoggedIn, function(req, res){
 		});
 });
 
+//cRud Classes
+
+app.get("/classes/:id", function(req, res){
+	Semester.findOne({'classes._id': req.params.id}, function(err, foundSemester){
+		if(err){
+			console.log(err);
+			res.redirect("back");
+		}else{
+			foundSemester.classes.forEach(function(queryClass){
+				if(queryClass._id == req.params.id){
+					res.render("showClass", {classData: queryClass, weekDays: weekDays});
+				}
+			});
+			
+		}
+	});
+});
+
+
 function isLoggedIn(req, res, next){
 	if(req.isAuthenticated()){
 		return next();
@@ -139,6 +158,14 @@ function isLoggedIn(req, res, next){
 
 	res.redirect("/login");
 };
+
+function findClass(semester, id){
+	semester.classes.forEach(function(queryClass){
+				if(queryClass._id == id){
+					return queryClass;
+				}
+	});
+}
 
 function createClasses(body){
 	var classes = [];

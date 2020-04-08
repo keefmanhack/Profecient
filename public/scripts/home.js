@@ -1,8 +1,8 @@
 $(".dropdown").click(function(e){
 	var classContent = $(this).parent().next();
 	if(classContent.is(":visible")){
-		classContent.hide("slow", "swing");
+		classContent.hide("fast", "linear");
 	}else{
-		classContent.show("slow", "swing");
+		classContent.show("fast", "linear");
 	}
 });

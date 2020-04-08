@@ -13,7 +13,7 @@
     color: #E8F7EE; 
 }
 
-.btn{
+.btn-primary{
 	background-color: #171D1C; 
 }
 
@@ -50,6 +50,7 @@
 
 .dropdown:hover{
 	color: #171D1C;
+	cursor: pointer;
 } 
 
 .content{

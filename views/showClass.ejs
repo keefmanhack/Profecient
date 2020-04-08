@@ -1,0 +1,35 @@
+<%- include("../partials/header") %>
+
+	<h1><%=classData.name%> <a class="btn btn-warning" href="">Edit</a> <a class="btn btn-danger" href="">Delete</a></h1>
+	<p>Instructor: <%=classData.instructor%> Location:<%=classData.location%></p>
+	<div class="week">
+		<%var ct =0;%>
+			<%for(day in classData.days){%>
+				<%if (ct >3 & ct<11) {%>
+					<%if(classData.days[day]){%>
+						<span class="dayOfWeek True">
+							<h5>
+								<%=weekDays[ct-4]%>	
+							</h5>
+						</span>
+					<%}else{%>
+						<span class="dayOfWeek False">
+							<h5>
+								<%=weekDays[ct-4]%>	
+							</h5>
+						</span>
+					<%}%>
+				<%}else if(ct>11){%>
+					<%break%>
+				<%}%>
+				<%ct++;%>
+			<%}%>
+
+		</div>
+
+	<h1>Assignments</h1>
+	<h2>Completed</h2>
+	<h2>Due This Week</h2>
+	<h2>Upcomming</h2>
+
+<%- include("../partials/footer") %>
