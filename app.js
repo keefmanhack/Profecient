@@ -94,13 +94,14 @@ app.post("/login", passport.authenticate("local", {
 });
 
 
-
+var weekDays = ['Mon.', 'Tues.', 'Wed.', 'Thurs.', 'Fri.', 'Sat.', 'Sun.'];
 app.get("/home", isLoggedIn, function(req, res){
+
 	Semester.find({}, function(err, allSemesters){
 		if(err){
 			console.log(err);
 		}else{
-			res.render("home", {semesters: allSemesters});
+			res.render("home", {semesters: allSemesters, weekDays: weekDays});
 		}
 	});
 });
@@ -111,6 +112,7 @@ app.get("/newsemester", isLoggedIn, function(req, res){
 
 app.post("/newsemester", isLoggedIn, function(req, res){
 
+	
 	var semesterID;
 	var newSemester = {
 		name: req.body.semesterName,
@@ -118,9 +120,7 @@ app.post("/newsemester", isLoggedIn, function(req, res){
 			id: req.user._id,
 			username: req.user.username
 		},
-		classes: createClasses(req.body),
-		days: createDays(req.body),
-		time: createTime(req.body)
+		classes: createClasses(req.body)
 	};
 
 	Semester.create(newSemester, function(err, newlyCreatedSemester){
@@ -149,7 +149,9 @@ function createClasses(body){
 				{
 					name: body.class.name[i],
 					instructor: body.class.instructor[i],
-					location: body.class.location[i] 
+					location: body.class.location[i],
+					days : createWeek(body.class, i),
+					time: createTime(body.class, i)
 				};
 			classes.push(newClass);
 		}
@@ -159,50 +161,32 @@ function createClasses(body){
 	}
 }
 
-function createDays(body){
-	var week = [];
-	var newWeek = {};
-	if(Array.isArray(body.class.name)){
-		for(var i =0; i < body.class.name.length; i++){
-			newWeek =
-				{
-					monday: body.days.monday[i],
-					tuesday: body.days.tuesday[i],
-					wednesday: body.days.wednesday[i],
-					thursday: body.days.thursday[i],
-					friday: body.days.friday[i],
-					saturday: body.days.saturday[i],
-					sunday: body.days.sunday[i]
+function createWeek(body, i){
+	newWeek =
+	{
+		monday: body.days.monday[i],
+		tuesday: body.days.tuesday[i],
+		wednesday: body.days.wednesday[i],
+		thursday: body.days.thursday[i],
+		friday: body.days.friday[i],
+		saturday: body.days.saturday[i],
+		sunday: body.days.sunday[i]
 
-				};
-			week.push(newWeek);
-		}
-		return week;
-	}else{
-		return body.days;
-	}
+	};
+	return newWeek;
 }
 
-function createTime(body){
-	var time = [];
-	var newTime = {};
-	if(Array.isArray(body.class.name)){
-		for(var i =0; i < body.class.name.length; i++){
-			newTime =
-				{
-					startHour: body.time.startHour[i],
-					startMinute: body.time.startMinute[i],
-					startAMPM: body.time.startAMPM[i],
-					endHour: body.time.endHour[i],
-					endMinute: body.time.endMinute[i],
-					endAMPM: body.time.endAMPM[i]
-				};
-			time.push(newTime);
-		}
-		return time;
-	}else{
-		return body.time;
-	}
+function createTime(body, i){
+	newTime =
+		{
+		startHour: body.time.startHour[i],
+		startMinute: body.time.startMinute[i],
+		startAMPM: body.time.startAMPM[i],
+		endHour: body.time.endHour[i],
+		endMinute: body.time.endMinute[i],
+		endAMPM: body.time.endAMPM[i]
+		};
+	return newTime;
 }
 
 app.listen(3000, 'localhost', function(){

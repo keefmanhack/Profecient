@@ -1,23 +1,79 @@
 <%- include("../partials/header") %>
 
-<h1>Welcome home baby</h1>
+
+	<div class="jumbotron jumbotron-fluid">
+		<div class="container">
+			<h1 class="display-4"><i class="fas fa-apple-alt"></i> Welcome to Profecient</h1>
+		    <p class="lead">A Fantstastically integrated scheduling tool!</p>
+		    <hr class="my-4">
+		    <p>Get started today by creating your first semester</p>
+		    <a class="btn btn-primary btn-lg" href="/newsemester" role="button">Create New Semester</a>
 
 
+		</div>
+	</div>
+	  
 
-<ul>
-	<%semesters.forEach(function(semester){%>
-		<li>
-			<%=semester.name%>
-		</li>
-		<ul>
-			<%semester.classes.forEach(function(o){%>
-				<li>
-					<%=o.name%> - <strong><%=o.instructor%></strong> - <em><%=o.location%></em>
-				</li>
+	<h1 id="semester">Semester: <%=semesters[0].name%></h1>
+
+	<div class="container">
+		<div class="row">
+			<%semesters[0].classes.forEach(function(o){%>
+				<div class="col-md-4 col-sm-12">
+					<div class="className round">
+						<h2>
+							<button class="dropdown className">
+							<i class="fa fa-angle-down"></i>
+							<%=o.name%>
+							</button> 
+						</h2>
+						<div class="content round">
+							<h3>Instructor: <%=o.instructor%></h3>
+							<h3 class="location">Location: <%=o.location%></h3>
+							<div class="week">
+								<%var ct =0;%>
+								<%for(day in o.days){%>
+									<%if (ct >3 & ct<11) {%>
+										<%if(o.days[day]){%>
+											<span class="dayOfWeek True">
+												<h5>
+													<%=weekDays[ct-4]%>	
+												</h5>
+											</span>
+										<%}else{%>
+											<span class="dayOfWeek False">
+												<h5>
+													<%=weekDays[ct-4]%>	
+												</h5>
+											</span>
+										<%}%>
+									<%}else if(ct>11){%>
+										<%break%>
+									<%}%>
+									<%ct++;%>
+								<%}%>
+
+							</div>
+							<h3 class="time">From: 
+								<%=o.time.startHour%>:<%=o.time.startMinute%> <%=o.time.startAMPM%> 
+								to
+								 <%=o.time.endHour%>:<%=o.time.endMinute%> <%=o.time.endAMPM%>  
+							</h3>
+							<a class="btn btn-primary details" href="/classes/<%=o._id%>">Details</a>
+						</div>
+					</div>
+				</div>
 			<%})%>
-		</ul>
-	<%})%>
-</ul>
+		</div>
+	</div>
 
+		
+	
+	
+
+
+
+
+<script   src="/scripts/home.js" crossorigin="anonymous"></script>
 
 <%- include("../partials/footer") %>
