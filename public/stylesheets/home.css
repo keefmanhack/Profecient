@@ -17,14 +17,10 @@
 	background-color: #171D1C; 
 }
 
-#semester{
+.title{
 	background-color: #171D1C;
 	color: #3185FC;
 	margin-top: 5px;
-	margin-left: 80px;
-	margin-right: 80px; 
-
-	padding-left: 80px;
     padding-top: 30px;
     padding-bottom: 30px;
     font-weight: 900;
@@ -32,9 +28,15 @@
 
 }
 
+.indent{
+	margin-left: 80px;
+	margin-right: 80px; 
+	padding-left: 80px;
+}
+
 .className{
 	background-color: #3185FC;
-	color: white;
+	color: #E8F7EE;
 	margin-top: 5px;
 	margin-left: 9px;
 }
@@ -43,8 +45,14 @@
 	border: none;
 }
 
-.row{
-	margin-bottom: 50px;
+.row.week{
+	margin-top: 5px;
+	margin-bottom: 5px;
+	margin-left: 50px;
+}
+
+.instructLoc{
+	font-size: 1em;
 }
 
 
@@ -55,6 +63,9 @@
 
 .content{
 	background-color: #3185FC;
+	color: #E8F7EE;
+	padding-bottom: 3px;
+	padding-right: 5px;
 }
 
 span h5{
@@ -63,16 +74,16 @@ span h5{
 
 .dayOfWeek{
 	margin-bottom: 50px;
-	padding: 6px 6px;
-	margin-left: 2px;
 	border-radius: 25px;
 	
 }
 
 
 .dayOfWeek.False{
-	background: #171D1C;
-	color: white;
+	background-image: linear-gradient(rgba(23, 29, 28,.5), rgba(224, 231, 255, .1));
+
+	/*background: #171D1C;*/
+	color: rgba(23, 29, 28,.5);
 }
 .dayOfWeek.True{
 	background: #3185FC;
@@ -81,34 +92,74 @@ span h5{
 
 h5{
 	font-size: 1%;
-	font-weight: 800;
+	font-weight: 500;
 	margin: 0 0;
 	padding: 0 0;
 }
 
-
-.location{
-	margin-bottom: 15px;
-}
-
-.time{
-	margin-top: 15px;
-}
-
 .week span:first-of-type{
 	margin-top: 50px;
-	margin-left: 35px;
 }
 
+
+/*HOME PAGE STYLING*/
+.homePage [class*="col-"]{
+	padding-left: 1px;
+	padding-right: 1px;
+}
+
+
+.week .dayOfWeek.homePage{
+	padding: 4px;
+}
+
+.week .dayOfWeek.homePage h5{
+	font-size: .7em;
+}
+
+.dayOfWeek.True.homePage{
+	background: #171D1C;
+	color: #E8F7EE;
+}
+
+.dayOfWeek.False.homePage{
+	background: rgba(23, 29, 28,.5);
+	color: #E8F7EE;
+}
+
+/*END OF HOME PAGE STYLING*/
+
+/*SHOW PAGE STYLING*/
+
+.row.week.showPage{
+	margin-left: 160px;
+	margin-top: 25px;
+    margin-bottom: 50px;
+}
+
+.week .dayOfWeek.showPage{
+	padding: 30px 30px 30px 30px;
+	
+}
+
+.week .dayOfWeek.showPage h5{
+	font-size: 20px;
+}
+
+
+
+.showPage [class*="col-"]{
+	padding-left: 2px;
+	padding-right: 2px;
+}
+
+
+/*End of SHOW PAGE STYLING*/
 
 body{
 	background: #e0e7ff;
 }
 
-h3{
-	font-size: 20px;
-    padding-left: 35px;
-}
 
 .round{
 	border-radius: 25px;
@@ -120,7 +171,9 @@ h2{
 
 .details{
 	margin-left: 35px;
-	margin-bottom: 10px;
+}
+.blackText{
+	color: #171D1C;
 }
 
 .jumbotron{
