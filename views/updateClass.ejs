@@ -1,0 +1,93 @@
+<%- include("../partials/header") %>
+
+<div class="container">
+	<h1>Update semester</h1>
+
+	<form action="/semester/<%=semesterData._id%>/?_method=PUT" method="POST">
+		<div class="row">
+			<div class="col-sm-8">
+				<input type="text" class="form-control" name="semesterName" placeholder="Name" value="<%=semesterData.name%>">
+			</div>
+			<div style="margin-right: 30px;" class="col-sm-1">
+				<button class="btn btn-primary" type="button">New Class</button>
+			</div>
+			<div class="col-sm-2">
+				<button class="btn btn-success">Complete</button>
+			</div>
+		</div>
+
+		<%semesterData.classes.forEach(function(o){%>
+			<hr>
+
+			<div class="row">
+				<div class="col-sm-4">
+					<input type="text" class="form-control" name="class[name]" placeholder="Course Name" value="<%=o.name%>">
+				</div>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" name="class[instructor]" placeholder="Instructor" value="<%=o.instructor%>">
+				</div>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" name="class[location]" placeholder="Location" value="<%=o.location%>">
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="select-Days">
+					<div class="col-auto">
+						<div class="col-sm-12">
+							<input class="check" type="checkbox" value="true" id="monday" name="class[days][monday]" <%=o.days.monday ? "checked" : "" %>>
+							<input class=hid type="hidden" value="false" name="class[days][monday]">
+							<label class="<%= o.days.monday ? "dayChecked" : "" %>" for="monday">Monday</label>
+							<input class=check type="checkbox" id="tuesday" value="true" name="class[days][tuesday]" <%=o.days.tuesday ? "checked" : "" %>>
+							<input class=hid type="hidden" value="false" name="class[days][tuesday]">
+							<label class="<%= o.days.tuesday ? "dayChecked" : "" %>" for="tuesday">Tuesday</label>
+							<input class=check type="checkbox" id="wednesday" value="true" name="class[days][wednesday]" <%=o.days.wednesday ? "checked" : "" %>>
+							<input class=hid type="hidden" value="false" name="class[days][wednesday]">
+							<label class="<%= o.days.wednesday ? "dayChecked" : "" %>" for="wednesday">Wednesday</label>
+							<input class=check type="checkbox" id="thursday" value="true" name="class[days][thursday]" <%=o.days.thursday ? "checked" : "" %>>
+							<input class=hid type="hidden" value="false" name="class[days][thursday]">
+							<label class="<%= o.days.thursday ? "dayChecked" : "" %>" for="thursday">Thursday</label>
+							<input class=check type="checkbox" id="friday" value="true" name="class[days][friday]" <%=o.days.friday ? "checked" : "" %>>
+							<input class=hid type="hidden" value="false" name="class[days][friday]">
+							<label class="<%= o.days.friday ? "dayChecked" : "" %>" for="friday">Friday</label>
+							<input class=check type="checkbox" id="saturday" value="true" name="class[days][saturday]" <%=o.days.saturday ? "checked" : "" %>>
+							<input class=hid type="hidden" value="false" name="class[days][saturday]">
+							<label class="<%= o.days.saturday ? "dayChecked" : "" %>" for="saturday">Saturday</label>
+							<input class=check type="checkbox" id="sunday" value="true" name="class[days][sunday]" <%=o.days.sunday ? "checked" : "" %>>
+							<input class=hid type="hidden" value="false" name="class[days][sunday]">
+							<label class="<%= o.days.sunday ? "dayChecked" : "" %>" for="sunday">Sunday</label>
+						</div>
+					</div>
+				</div>
+			</div>
+		
+			<div class="row">
+				<div class="col-sm-4">
+					<label>Start Time</label>
+					<input type="number" min="1" max="12" name="class[time][startHour]" value="<%=o.time.startHour%>">
+					<label>:</label>
+					<input type="number" min="0" max="60" name="class[time][startMinute]" value="<%=o.time.startMinute%>">
+					<select name="class[time][startAMPM]" value="<%=o.time.startAMPM%>">
+						<option value="AM">AM</option>
+						<option value="PM">PM</option>
+					</select>
+				</div>
+				<div class="col-sm-4">
+					<label>End Time</label>
+					<input type="number" min="1" max="12" name="class[time][endHour]" value="<%=o.time.endHour%>">
+					<label>:</label>
+					<input type="number" min="0" max="60" name="class[time][endMinute]" value="<%=o.time.endMinute%>">
+					<select name="class[time][endAMPM]" value="<%=o.time.endAMPM%>">
+						<option value="AM">AM</option>
+						<option value="PM">PM</option>
+					</select>
+				</div>
+			</div>
+		<%})%>
+	</form>
+</div>
+
+
+
+<script type="text/javascript" src="/scripts/newsemester.js"></script>
+<%- include("../partials/footer") %>

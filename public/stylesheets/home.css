@@ -34,11 +34,16 @@
 	padding-left: 80px;
 }
 
+.blocks{
+	margin-bottom: 20px;
+}
+
 .className{
 	background-color: #3185FC;
 	color: #E8F7EE;
 	margin-top: 5px;
 	margin-left: 9px;
+	padding-bottom: 5px;
 }
 
 .dropdown{
@@ -156,6 +161,57 @@ h5{
 
 /*End of SHOW PAGE STYLING*/
 
+/*NEW SEMESTER*/
+.select-Days  input{
+  display: none;
+}
+
+.select-Days > .col-auto > .col-sm-12> label {
+  display: inline-block;
+  width: 90px;
+  height: 50px;
+  margin: auto;
+  text-align: center;
+  border: 1px solid #ddd;
+  line-height: 50px;
+  cursor: pointer;
+
+  background-color: #171D1C;
+  color: #E8F7EE;
+
+  border-radius: 25px;
+
+  transition: .3s;
+}
+
+.select-Days > .col-auto > .col-sm-12> label::selection {
+ 	color: none;
+ 	background: none;
+}
+
+
+.select-Days > .col-auto > .col-sm-12> label.dayChecked{
+	background: #3185FC;
+  	color: #171D1C;
+  	transition: .3s;
+}
+
+ .select-Days [class*="col-"]{
+	padding-left: 1px;
+	padding-right: 1px;
+}
+
+ .select-Days{
+ 	margin-top: 10px; 
+ 	margin-left: 13px;
+ 	margin-bottom: 10px;
+}
+
+form{
+	margin-bottom: 100px;
+}
+/*END OF NEW SEMESTER*/
+
 body{
 	background: #e0e7ff;
 }
@@ -181,6 +237,6 @@ h2{
     	margin: 8px 1% 10px 1%;
 }
 
-.btn-primary{
+.btn{
 	border-radius: 25px;
 }

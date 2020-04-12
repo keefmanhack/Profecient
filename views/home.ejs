@@ -12,93 +12,98 @@
 
 		</div>
 	</div>
+
+
 	  
+	<%if(Object.keys(semesters).length){%>
+		<h1 class="title indent">Semester: <%=semesters[0].name%></h1>
 
-	<h1 class="title indent">Semester: <%=semesters[0].name%></h1>
-
-	<div class="container">
-		<div class="row">
-			<%semesters[0].classes.forEach(function(o){%>
-				<div class="col-md-4 col-sm-12">
-					<div class="className round">
-						<h2>
-							<button class="dropdown className">
-							<i class="fa fa-angle-down"></i>
-							<%=o.name%>
-							</button> 
-						</h2>
-						<div class="content round">
-							<div class="row details">
-								<div class="col">
-									<h3 class="instructLoc">Instructor: 
-										<span class="blackText">
-											<%=o.instructor%>
-										</span>
-									</h3>
-								</div>
-								<div class="col">
-									<h3 class="instructLoc">Location: 
-										<span class="blackText">
-											<%=o.location%>
-										</span>
-									</h3>
-								</div>
-							</div>
-
-							<div class="row week homePage details">
-								<%var ct =0;%>
-								<%for(day in o.days){%>
-									<%if (ct >3 & ct<11) {%>
-										<div class="col-auto">
-											<div class="col-md-1 week homePage">
-												<%if(o.days[day]){%>
-													<span class="dayOfWeek True homePage">
-														<h5 class="day">
-															<%=weekDays[ct-4]%>	
-														</h5>
-													</span>
-												<%}else{%>
-													<span class="dayOfWeek homePage False">
-														<h5 class="day">
-															<%=weekDays[ct-4]%>
-														</h5>
-													</span>
-												<%}%>
-											</div>
+		<div class="container">
+			<div class="row">
+				<%semesters[0].classes.forEach(function(o){%>
+					<div class="col-md-4 col-sm-12">
+						<div class=blocks>
+							<div class="className round">
+								<h2>
+									<button class="dropdown className">
+									<i class="fa fa-angle-down"></i>
+									<%=o.name%>
+									</button> 
+								</h2>
+								<div class="content round">
+									<div class="row details">
+										<div class="col">
+											<h3 class="instructLoc">Instructor: 
+												<span class="blackText">
+													<%=o.instructor%>
+												</span>
+											</h3>
 										</div>
-									<%}else if(ct>11){%>
-										<%break%>
-									<%}%>
-									
-									<%ct++;%>
-								<%}%>
-							</div>
+										<div class="col">
+											<h3 class="instructLoc">Location: 
+												<span class="blackText">
+													<%=o.location%>
+												</span>
+											</h3>
+										</div>
+									</div>
 
-							<div class="row details">
-								<div class="col">
-									<h3 class="instructLoc">From:
-										<span class="blackText">
-											<%=o.time.startHour%>:<%=o.time.startMinute%> <%=o.time.startAMPM%>
-										</span> 
-										to
-										<span class="blackText">
-											<%=o.time.endHour%>:<%=o.time.endMinute%> <%=o.time.endAMPM%>
-										</span>  
-									</h3>
-								</div>
-							</div>
+									<div class="row week homePage details">
+										<%var ct =0;%>
+										<%for(day in o.days){%>
+											<%if (ct >3 & ct<11) {%>
+												<div class="col-auto">
+													<div class="col-md-1 week homePage">
+														<%if(o.days[day]){%>
+															<span class="dayOfWeek True homePage">
+																<h5 class="day">
+																	<%=weekDays[ct-4]%>	
+																</h5>
+															</span>
+														<%}else{%>
+															<span class="dayOfWeek homePage False">
+																<h5 class="day">
+																	<%=weekDays[ct-4]%>
+																</h5>
+															</span>
+														<%}%>
+													</div>
+												</div>
+											<%}else if(ct>11){%>
+												<%break%>
+											<%}%>
+											
+											<%ct++;%>
+										<%}%>
+									</div>
 
-							<div class="row details">
-								<div class="col">
-									<a class="btn btn-primary" href="/classes/<%=o._id%>">Details</a>
+									<div class="row details">
+										<div class="col">
+											<h3 class="instructLoc">From:
+												<span class="blackText">
+													<%=o.time.startHour%>:<%=o.time.startMinute%> <%=o.time.startAMPM%>
+												</span> 
+												to
+												<span class="blackText">
+													<%=o.time.endHour%>:<%=o.time.endMinute%> <%=o.time.endAMPM%>
+												</span>  
+											</h3>
+										</div>
+									</div>
+
+									<div class="row details">
+										<div class="col">
+											<a class="btn btn-primary" href="/class/<%=o._id%>">Details</a>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-			<%})%>
+				<%})%>
+			</div>
 		</div>
-	</div>
+	<%}%>
 
 		
 	

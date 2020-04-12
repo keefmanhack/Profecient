@@ -3,7 +3,8 @@ var express 		= require("express"),
     mongoose		= require('mongoose'),
     passport		= require('passport'),
     LocalStrategy	= require('passport-local'),
-    bodyParser		= require('body-parser');
+    bodyParser		= require('body-parser'),
+    methodOverride  = require('method-override');
 
 
 
@@ -44,6 +45,7 @@ app.use(function(req, res, next){
 
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + '/public')); //for js scripts
+app.use(methodOverride("_method"));
 
 
 app.get("/", function(req, res){
@@ -134,7 +136,7 @@ app.post("/newsemester", isLoggedIn, function(req, res){
 
 //cRud Classes
 
-app.get("/classes/:id", function(req, res){
+app.get("/class/:id", isLoggedIn, function(req, res){
 	Semester.findOne({'classes._id': req.params.id}, function(err, foundSemester){
 		if(err){
 			console.log(err);
@@ -150,6 +152,45 @@ app.get("/classes/:id", function(req, res){
 	});
 });
 
+//crUd Classes  ****Add isLoggedIn
+app.get("/semester/:id/update", isLoggedIn, function(req, res){
+	Semester.findOne({'classes._id': req.params.id}, function(err, foundSemester){
+		if(err){
+			console.log(err);
+			res.redirect("back");
+		}else{
+			res.render("updateClass", {semesterData: foundSemester, weekDays: weekDays});
+		}
+	});
+});
+
+app.put("/semester/:id", function(req, res){
+	var updatedSemester = {
+		name: req.body.semesterName,
+		student: {
+			id: req.user._id,
+			username: req.user.username
+		},
+		classes: createClasses(req.body)
+	};
+
+	Semester.findByIdAndUpdate(req.params.id, updatedSemester, function(err, updatedSemester){
+		if(err){
+			console.log(err);
+		}else{
+			res.redirect("/home");
+		}
+	});
+})
+
+function findClass(theSemester, theId){
+	theSemester.classes.forEach(function(queryClass){
+		if(queryClass._id == theId){
+			return queryClass;
+		}
+	});
+}
+
 
 function isLoggedIn(req, res, next){
 	if(req.isAuthenticated()){
@@ -158,14 +199,6 @@ function isLoggedIn(req, res, next){
 
 	res.redirect("/login");
 };
-
-function findClass(semester, id){
-	semester.classes.forEach(function(queryClass){
-				if(queryClass._id == id){
-					return queryClass;
-				}
-	});
-}
 
 function createClasses(body){
 	var classes = [];
