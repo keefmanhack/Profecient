@@ -52,20 +52,6 @@ app.get("/", function(req, res){
 	res.render("landing");
 });
 
-app.get("/remove", function(req, res){
-	Semester.remove({}, function(err){
-		if(err){
-			console.log(err);
-		}else{
-			console.log("Removed all semesters");
-			res.redirect("/home");
-		}
-
-	});
-
-});
-
-
 //login and signup routes
 app.get("/signup", function(req, res){
 	res.render("signup");
@@ -152,7 +138,7 @@ app.get("/class/:id", isLoggedIn, function(req, res){
 	});
 });
 
-//crUd Classes  ****Add isLoggedIn
+//crUd Classes  ****Add checkauthorization
 app.get("/semester/:id/update", isLoggedIn, function(req, res){
 	Semester.findOne({'classes._id': req.params.id}, function(err, foundSemester){
 		if(err){
@@ -181,7 +167,18 @@ app.put("/semester/:id", function(req, res){
 			res.redirect("/home");
 		}
 	});
-})
+});
+
+//cruDClasses
+app.delete("/semester/:id", function(req, res){
+	Semester.findByIdAndRemove(req.params.id, function(err){
+		if(err){
+			res.redirect("back");
+		}else{
+			res.redirect("/home");
+		}
+	});
+});
 
 function findClass(theSemester, theId){
 	theSemester.classes.forEach(function(queryClass){

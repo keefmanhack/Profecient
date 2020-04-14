@@ -16,7 +16,14 @@
 
 	  
 	<%if(Object.keys(semesters).length){%>
-		<h1 class="title indent">Semester: <%=semesters[0].name%></h1>
+		<h1 class="title indent">
+			Semester: <%=semesters[0].name%>
+			<a class="btn btn-warning" href="/semester/<%=semesters[0].classes[0]._id%>/update">Edit</a>
+			<form style="display: inline;" action="/semester/<%=semesters[0]._id%>/?_method=DELETE" method="POST">
+				<button class="btn btn-danger">Delete</button>
+			</form>	
+				
+		</h1>
 
 		<div class="container">
 			<div class="row">
