@@ -32,7 +32,11 @@ var semesterSchema = new mongoose.Schema({
 					endHour: Number,
 					endMinute: Number,
 					endAMPM: String
-				}
+				},
+			assignments: [{
+				type: mongoose.Schema.Types.ObjectId,
+				ref: "Assignment"
+			}]
 		}
 	]
 });

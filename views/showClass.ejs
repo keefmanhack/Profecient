@@ -62,30 +62,36 @@
 			<div class="col">
 				<h1>Assignments</h1>
 			</div>
+			<div class="col">
+				<a class="btn btn-primary" href="/class/<%=classData._id%>/Assignment/new">Add Assignment</a>
+			</div>
+		</div>
+		
+		<div class="assignment-list">
+			<%classData.assignments.forEach(function(assignment){%>
+				<div class="row">
+					<div class="col">
+						<h2><%=assignment.name%></h2>
+					</div>
+					<div class="col">
+						<h3><%=assignment.dueDate%></h3>
+					</div>
+					<div class="col">
+						<h3 class="details">Details</h3>
+						<div class="details-description"><%=assignment.description%></div>
+					</div>
+					<div class="col">
+						<a class="btn btn-warning" href="/class/<%=classData._id%>/Assignment/<%=assignment._id%>/edit">Edit</a>
+						<form style="display: inline;" action="/class/<%=classData._id%>/Assignment/<%=assignment._id%>/?_method=DELETE" method="POST">
+							<button class="btn btn-danger">Delete</button>
+						</form>
+						
+					</div>
+				</div>
+			<%})%>			
 		</div>
 
-		<div class="row indent">
-			<div class="col">
-				<h2>Completed</h2>
-			</div>
-		</div>
-
-		<div class="row indent">
-			<div class="col">
-				<h2>Due This Week</h2>
-			</div>
-		</div>
-		<div class="row indent">
-			<div class="col">
-				<h2>Upcomming</h2>
-			</div>
-		</div>
-		
-		
-		
-		
 	</div>
 
-	
 
 <%- include("../partials/footer") %>

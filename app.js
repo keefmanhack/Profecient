@@ -9,7 +9,8 @@ var express 		= require("express"),
 
 
 var User 			= require("./models/user"),
-	Semester		= require("./models/semester");
+	Semester		= require("./models/semester"),
+	Assignment      = require("./models/newAssignment");
 
 
 
@@ -85,12 +86,16 @@ app.post("/login", passport.authenticate("local", {
 var weekDays = ['Mon.', 'Tues.', 'Wed.', 'Thurs.', 'Fri.', 'Sat.', 'Sun.'];
 app.get("/home", isLoggedIn, function(req, res){
 
-	Semester.find({}, function(err, allSemesters){
-		if(err){
-			console.log(err);
-		}else{
-			res.render("home", {semesters: allSemesters, weekDays: weekDays});
-		}
+	Semester.find({})
+		.populate({
+			path: 'classes.assignments'
+		})
+		.exec(function(err, allSemesters){
+			if(err){
+				console.log(err);
+			}else{
+				res.render("home", {semesters: allSemesters, weekDays: weekDays});
+			}
 	});
 });
 
@@ -123,19 +128,22 @@ app.post("/newsemester", isLoggedIn, function(req, res){
 //cRud Classes
 
 app.get("/class/:id", isLoggedIn, function(req, res){
-	Semester.findOne({'classes._id': req.params.id}, function(err, foundSemester){
-		if(err){
-			console.log(err);
-			res.redirect("back");
-		}else{
-			foundSemester.classes.forEach(function(queryClass){
-				if(queryClass._id == req.params.id){
-					res.render("showClass", {classData: queryClass, weekDays: weekDays});
-				}
-			});
-			
-		}
-	});
+	Semester.findOne({'classes._id': req.params.id})
+		.populate({
+			path: 'classes.assignments'
+		})
+		.exec(function(err, foundSemester){
+			if(err){
+				console.log(err);
+				res.redirect("back");
+			}else{
+				foundSemester.classes.forEach(function(queryClass){
+					if(queryClass._id == req.params.id){
+						res.render("showClass", {classData: queryClass, weekDays: weekDays});
+					}
+				});
+			}
+		});
 });
 
 //crUd Classes  ****Add checkauthorization
@@ -160,14 +168,23 @@ app.put("/semester/:id", function(req, res){
 		classes: createClasses(req.body)
 	};
 
-	Semester.findByIdAndUpdate(req.params.id, updatedSemester, function(err, updatedSemester){
+	Semester.findByIdAndUpdate(req.params.id, updatedSemester, function(err, foundSemester){
 		if(err){
 			console.log(err);
 		}else{
+			
 			res.redirect("/home");
 		}
 	});
 });
+
+function preserveAssignments(classes, updatedSem){
+	for(var i =0; i < updatedSem.classes.length; i++){
+		updatedSem.classes[i].assignments = classes[i].assignments;
+	}
+
+	return updatedSem;
+}
 
 //cruDClasses
 app.delete("/semester/:id", function(req, res){
@@ -176,6 +193,100 @@ app.delete("/semester/:id", function(req, res){
 			res.redirect("back");
 		}else{
 			res.redirect("/home");
+		}
+	});
+});
+
+//Assignment Creation
+app.get("/class/:id/Assignment/new", isLoggedIn, function(req, res){
+	Semester.findOne({'classes._id': req.params.id}, function(err, foundSemester){
+		if(err){
+			console.log(err);
+			res.redirect("back");
+		}else{
+			foundSemester.classes.forEach(function(queryClass){
+				if(queryClass._id == req.params.id){
+					res.render("createAssignment", {classData: queryClass});
+				}
+			});
+			
+		}
+	});
+});
+
+app.post("/class/:id/Assignment/new", isLoggedIn, function(req, res){
+	Semester.findOne({'classes._id': req.params.id}, function(err, foundSemester){
+		if(err){
+			console.log(err);
+			res.redirect("back");
+		}else{
+			Assignment.create(req.body.assignment, function(err, newAssignment){
+				if(err){
+					console.log(err);
+					res.redirect("back");
+				}else{
+					newAssignment.student.id = req.user._id;
+					newAssignment.student.username = req.user.username;
+
+					newAssignment.save();
+					foundSemester.classes.forEach(function(queryClass){
+						if(queryClass._id == req.params.id){
+							queryClass.assignments.push(newAssignment);
+						}
+					});
+					
+					foundSemester.save();
+					res.redirect("/class/" + req.params.id);
+				}
+			})	
+		}
+	});
+});
+
+// class/5e96679e43a3138642ca872d/Assignment/5e96735943a3138642ca8731/edit
+
+app.get("/class/:id/Assignment/:assignment_id/edit", isLoggedIn, function(req, res){
+	Semester.findOne({'classes._id': req.params.id}, function(err, foundSemester){
+		if(err){
+			console.log(err);
+			res.redirect("back");
+		}else{
+			Assignment.findById(req.params.assignment_id, function(err, foundAssignment){
+				if(err){
+					console.log(err);
+					res.redirect("back")
+				}else{
+					foundSemester.classes.forEach(function(queryClass){
+						if(queryClass._id == req.params.id){
+
+	
+							res.render("updateAssignment", {classData: queryClass, assignmentData: foundAssignment});
+						}
+					});
+				}
+			});			
+		}
+	});
+});
+
+app.put("/class/:class_id/Assignment/:assignment_id", isLoggedIn, function(req, res){
+	Assignment.findByIdAndUpdate(req.params.assignment_id, req.body.assignment, function(err, updatedAssignment){
+		if(err){
+			console.log(err);
+			res.redirect("back");
+		}else{
+			res.redirect("/class/" + req.params.class_id);
+		}
+	});
+});
+
+app.delete("/class/:class_id/Assignment/:assignment_id/", isLoggedIn, function(req, res){
+	Assignment.findByIdAndRemove(req.params.assignment_id, function(err){
+		if(err){
+			console.log(err);
+			res.redirect("back");
+		}else{
+			res.redirect("/class/" + req.params.class_id);
 		}
 	});
 });
@@ -208,7 +319,8 @@ function createClasses(body){
 					instructor: body.class.instructor[i],
 					location: body.class.location[i],
 					days : createWeek(body.class, i),
-					time: createTime(body.class, i)
+					time: createTime(body.class, i),
+					assignments: [{}]
 				};
 			classes.push(newClass);
 		}
