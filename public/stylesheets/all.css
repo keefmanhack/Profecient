@@ -1,0 +1,19 @@
+body{
+	background: #e0e7ff;
+}
+
+.indent{
+	margin-left: 80px;
+	margin-right: 80px; 
+	padding-left: 80px;
+}
+
+.navbar-custom{
+	background-color: #171D1C;
+}
+
+.navbar-custom .navbar-brand, 
+.navbar-custom .navbar-text,
+.nav-link { 
+    color: #E8F7EE; 
+}

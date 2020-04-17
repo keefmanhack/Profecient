@@ -1,0 +1,45 @@
+#colon{
+	size: 2px;
+}
+
+.newAssignment{
+	margin-top: 25px;
+	padding: 20px 10% 10px 10%;
+	background: #171D1C;
+	color: white;
+	margin-left: 25%;
+	margin-right: 25%;
+	border-radius: 25px;
+}
+
+.newAssignment button{
+	background-color: #3185FC;
+}
+
+.newAssignment form{
+	margin-bottom: 0;
+}
+
+.newAssignment span{
+	color: #3185FC;
+}
+
+	/*DATE PICKER*/
+		.ui-datepicker{
+			background-color: white;
+			color:black;
+		}
+
+		.ui-datepicker-prev{
+			cursor: pointer;
+			margin-right: 98px;
+		}
+
+		.ui-datepicker-next{
+			cursor: pointer;
+		}
+
+		.ui-datepicker-title{
+			text-align: center;
+		}
+	/*END OF DATE PICKER*/

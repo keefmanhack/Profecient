@@ -1,0 +1,47 @@
+form{
+  margin-bottom: 100px;
+}
+
+.select-Days{
+  margin-top: 10px; 
+  margin-left: 13px;
+  margin-bottom: 10px;
+}
+
+.select-Days  input{
+  display: none;
+}
+
+.select-Days [class*="col-"]{
+  padding-left: 1px;
+  padding-right: 1px;
+}
+
+.select-Days > .col-auto > .col-sm-12> label {
+  display: inline-block;
+  width: 90px;
+  height: 50px;
+  margin: auto;
+  text-align: center;
+  border: 1px solid #ddd;
+  line-height: 50px;
+  cursor: pointer;
+
+  background-color: #171D1C;
+  color: #E8F7EE;
+
+  border-radius: 25px;
+
+  transition: .3s;
+}
+
+.select-Days > .col-auto > .col-sm-12> label.dayChecked{
+  background: #3185FC;
+    color: #171D1C;
+    transition: .3s;
+}
+
+.select-Days > .col-auto > .col-sm-12> label::selection {
+ 	color: none;
+ 	background: none;
+}

@@ -1,41 +1,24 @@
-.jumbotron{
-	background-color: #3185FC;
-	margin-bottom: 0;
+.blackText{
+	color: #171D1C;
 }
 
-.navbar-custom{
-	background-color: #171D1C;
+.blocks{
+	margin-bottom: 20px;
 }
 
-.navbar-custom .navbar-brand, 
-.navbar-custom .navbar-text,
-.nav-link { 
-    color: #E8F7EE; 
+.btn{
+	border-radius: 25px;
 }
 
 .btn-primary{
 	background-color: #171D1C; 
 }
 
-.title{
-	background-color: #171D1C;
-	color: #3185FC;
-	margin-top: 5px;
-    padding-top: 30px;
-    padding-bottom: 30px;
-    font-weight: 900;
-    border-radius: 25px;
-
-}
-
-.indent{
-	margin-left: 80px;
-	margin-right: 80px; 
-	padding-left: 80px;
-}
-
-.blocks{
-	margin-bottom: 20px;
+.content{
+	background-color: #3185FC;
+	color: #E8F7EE;
+	padding-bottom: 3px;
+	padding-right: 5px;
 }
 
 .className{
@@ -46,80 +29,10 @@
 	padding-bottom: 5px;
 }
 
-.dropdown{
-	border: none;
-}
-
-.row.week{
-	margin-top: 5px;
-	margin-bottom: 5px;
-	margin-left: 50px;
-}
-
-.instructLoc{
-	font-size: 1em;
-}
-
-
-.dropdown:hover{
-	color: #171D1C;
-	cursor: pointer;
-} 
-
-.content{
-	background-color: #3185FC;
-	color: #E8F7EE;
-	padding-bottom: 3px;
-	padding-right: 5px;
-}
-
-span h5{
-	display: inline;
-}
-
 .dayOfWeek{
 	margin-bottom: 50px;
 	border-radius: 25px;
 	
-}
-
-
-.dayOfWeek.False{
-	background-image: linear-gradient(rgba(23, 29, 28,.5), rgba(224, 231, 255, .1));
-
-	/*background: #171D1C;*/
-	color: rgba(23, 29, 28,.5);
-}
-.dayOfWeek.True{
-	background: #3185FC;
-	color: #171D1C;
-}
-
-h5{
-	font-size: 1%;
-	font-weight: 500;
-	margin: 0 0;
-	padding: 0 0;
-}
-
-.week span:first-of-type{
-	margin-top: 50px;
-}
-
-
-/*HOME PAGE STYLING*/
-.homePage [class*="col-"]{
-	padding-left: 1px;
-	padding-right: 1px;
-}
-
-
-.week .dayOfWeek.homePage{
-	padding: 4px;
-}
-
-.week .dayOfWeek.homePage h5{
-	font-size: .7em;
 }
 
 .dayOfWeek.True.homePage{
@@ -132,230 +45,71 @@ h5{
 	color: #E8F7EE;
 }
 
+.details{
+	margin-left: 35px;
+}
+
+.dropdown{
+	border: none;
+}
+
+.dropdown:hover{
+	color: #171D1C;
+	cursor: pointer;
+}
+
+.homePage [class*="col-"]{
+		padding-left: 1px;
+		padding-right: 1px;
+} 
+
+.instructLoc{
+	font-size: 1em;
+}
+
+.jumbotron{
+		background-color: #3185FC;
+		border-radius: 100px;
+    	margin: 8px 1% 10px 1%;
+}
+
+
 #new-assignment{
 	padding-left: 30px;
 }
-
-/*END OF HOME PAGE STYLING*/
-
-/*SHOW PAGE STYLING*/
-
-.row.week.showPage{
-	margin-left: 160px;
-	margin-top: 25px;
-    margin-bottom: 50px;
-}
-
-.week .dayOfWeek.showPage{
-	padding: 30px 30px 30px 30px;
-	
-}
-
-.week .dayOfWeek.showPage h5{
-	font-size: 20px;
-}
-
-
-
-.showPage [class*="col-"]{
-	padding-left: 2px;
-	padding-right: 2px;
-}
-
-	/*ASSIGNMENT TABLE*/
-	.assignment-list{
-		background-color: #171D1C;
-		margin-left: 16%;
-		margin-right: 16%;
-		padding-top: 10px;
-		padding-bottom: 10px;
-		color: white;
-
-		border-radius: 25px;
-	}
-
-	.assignment-list .row{
-		margin-left: 15px;
-		margin-right: 15px;
-		margin-bottom: 15px;
-		margin-top: 15px;
-		background-color: #3185FC;
-
-		border-radius: 25px;
-
-	}
-
-	.assignment-list .col{
-		text-align: center;
-		vertical-align: center;
-	}
-
-	.assignment-list .col h2{
-		font-size: 1.2em;
-		margin-top: 6%;
-	}
-
-	.assignment-list .col h3{
-		margin-top: 8%;
-		font-size: 1em;
-	}
-
-	.assignment-list .col a{
-		margin-top: 2%;
-	}
-
-	.assignment-list .col .details{
-		text-decoration: underline;
-		z-index: 1; 
-		position: absolute;
-	}
-
-	.assignment-list .col .details-description{
-		z-index: 2; 
-		position: absolute;
-		display: none;
-		padding: 50px 50px 50px 50px;
-		background-color: #171D1C;
-		border-radius: 25px;
-	}
-
-	.details:hover + .details-description{
-		display: block;
-	}
-
-	.row .col .btn-primary{
-		margin: 9px 0px 0px 160px;
-		background-color: #3185FC;
-	}
-	
-	/*END OF ASSIGNMENT TABLE*/
-
-/*End of SHOW PAGE STYLING*/
-
-/*NEW SEMESTER*/
-.select-Days  input{
-  display: none;
-}
-
-.select-Days > .col-auto > .col-sm-12> label {
-  display: inline-block;
-  width: 90px;
-  height: 50px;
-  margin: auto;
-  text-align: center;
-  border: 1px solid #ddd;
-  line-height: 50px;
-  cursor: pointer;
-
-  background-color: #171D1C;
-  color: #E8F7EE;
-
-  border-radius: 25px;
-
-  transition: .3s;
-}
-
-.select-Days > .col-auto > .col-sm-12> label::selection {
- 	color: none;
- 	background: none;
-}
-
-
-.select-Days > .col-auto > .col-sm-12> label.dayChecked{
-	background: #3185FC;
-  	color: #171D1C;
-  	transition: .3s;
-}
-
- .select-Days [class*="col-"]{
-	padding-left: 1px;
-	padding-right: 1px;
-}
-
- .select-Days{
- 	margin-top: 10px; 
- 	margin-left: 13px;
- 	margin-bottom: 10px;
-}
-
-form{
-	margin-bottom: 100px;
-}
-/*END OF NEW SEMESTER*/
-
-/*NEW ASSIGNMENT*/
-	.newAssignment{
-		margin-top: 25px;
-		padding: 20px 10% 10px 10%;
-		background: #171D1C;
-		color: white;
-		margin-left: 25%;
-		margin-right: 25%;
-		border-radius: 25px;
-	}
-
-	.newAssignment span{
-		color: #3185FC;
-	}
-
-	.newAssignment form{
-		margin-bottom: 0;
-	}
-
-	#colon{
-		size: 2px;
-	}
-
-	.newAssignment button{
-		background-color: #3185FC;
-	}
-
-	/*DATE PICKER*/
-		.ui-datepicker{
-			background-color: white;
-			color:black;
-		}
-
-		.ui-datepicker-prev{
-			cursor: pointer;
-			margin-right: 98px;
-		}
-
-		.ui-datepicker-next{
-			cursor: pointer;
-		}
-
-		.ui-datepicker-title{
-			text-align: center;
-		}
-	/*END OF DATE PICKER*/
-/*END OF NEW ASSIGNMENT*/
-
-body{
-	background: #e0e7ff;
-}
-
 
 .round{
 	border-radius: 25px;
 }
 
-h2{
-	padding-bottom: 5px;
+.row.week{
+	margin-top: 5px;
+	margin-bottom: 5px;
+	margin-left: 50px;
 }
 
-.details{
-	margin-left: 35px;
-}
-.blackText{
-	color: #171D1C;
+span h5{
+	display: inline;
 }
 
-.jumbotron{
-	    border-radius: 100px;
-    	margin: 8px 1% 10px 1%;
+.title{
+		background-color: #171D1C;
+		color: #3185FC;
+		margin-top: 5px;
+	    padding-top: 30px;
+	    padding-bottom: 30px;
+	    font-weight: 900;
+	    border-radius: 25px;
 }
 
-.btn{
-	border-radius: 25px;
+.week .dayOfWeek.homePage{
+	padding: 4px;
+}
+
+.week .dayOfWeek.homePage h5{
+	font-size: .7em;
+}
+
+.week span:first-of-type{
+	margin-top: 50px;
 }
