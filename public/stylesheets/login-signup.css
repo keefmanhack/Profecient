@@ -1,0 +1,31 @@
+/*.login .container{
+	padding: 0 30% 0 30%;
+	background-color: #171D1C;
+	margin: 160px 0 0 0;
+}*/
+
+
+
+body{
+	background: #3185FC;
+	color: white;
+}
+
+.btn{
+	width: 100%;
+	background-color: #171D1C;
+}
+
+form{
+	margin: 40px 35% 0 35%;
+}
+
+form input{
+	margin-bottom: 10px; 
+}
+
+.login .container{
+	text-align: center;
+	font-size: 50px;
+	margin-top: 25px;
+}

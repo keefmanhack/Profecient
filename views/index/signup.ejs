@@ -2,16 +2,26 @@
 <html>
 <head>
 	<title>Profecient</title>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+ 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+
+
+	<link rel="stylesheet" type="text/css" href="/stylesheets/login-signup.css">
 </head>
 <body>
 
-<h1>Sign Up!</h1>
+	<div class="login">
+		<div class="container">
+			<i class="fas fa-apple-alt"></i>
 
-<form action="/signup" method="POST">
-	<input type="text" name="username" placeholder="username">
-	<input type="password" name="password" placeholder="password">
-	<button class="btn btn-primary">Submit</button>
-</form>
+			<h1>Sign Up!</h1>
 
-
+			<form action="/signup" method="POST">
+				<input class="form-control" type="text" name="username" placeholder="username">
+				<input class="form-control" type="password" name="password" placeholder="password">
+				<button class="btn btn-primary">Sign Up</button>
+			</form>
+		</div>
+	</div>
 <%- include("../../partials/footer") %>
