@@ -1,0 +1,18 @@
+<div class="row">
+	<div class="col">
+		<h2 class="assignmentName"><%=assignment.name%></h2>
+	</div>
+	<div class="col">
+		<h3 class="dueDate"><%=assignment.dueDate%></h3>
+	</div>
+	<div class="col">
+		<h3 class="details">Details</h3>
+		<div class="details-description"><%=assignment.description%></div>
+	</div>
+	<div class="col">
+		<a class="btn btn-warning" href="/class/<%=classData._id%>/Assignment/<%=assignment._id%>/edit">Edit</a>
+		<form style="display: inline;" action="/class/<%=classData._id%>/Assignment/<%=assignment._id%>/?_method=DELETE" method="POST">
+			<button class="btn btn-danger">Delete</button>
+		</form>
+	</div>
+</div>

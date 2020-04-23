@@ -66,8 +66,6 @@ router.get("/:assignment_id/edit", middleWare.isLoggedIn, function(req, res){
 				}else{
 					foundSemester.classes.forEach(function(queryClass){
 						if(queryClass._id == req.params.class_id){
-
-	
 							res.render("assignments/updateAssignment", {classData: queryClass, assignmentData: foundAssignment});
 						}
 					});

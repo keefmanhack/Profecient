@@ -60,6 +60,52 @@ router.get("/class/:id", middleWare.isLoggedIn, function(req, res){
 			}else{
 				foundSemester.classes.forEach(function(queryClass){
 					if(queryClass._id == req.params.id){
+						var currentDate = new Date();
+
+						var dateBreakout = {
+							day: currentDate.getDate(),
+							month: currentDate.getMonth() + 1,
+							year: currentDate.getFullYear()
+						}
+
+						queryClass.assignments.forEach(function(assignment){
+							var splitDueDate = assignment.dueDate.split("/");
+
+							const assignmentDueDate = {
+								day: parseInt(splitDueDate[1], 10),
+								month: parseInt(splitDueDate[0], 10),
+								year: parseInt(splitDueDate[2], 10) 
+							}
+
+							
+
+							assignment.due.overdue = false;
+							assignment.due.today = false;
+							assignment.due.tomorrow = false;
+							assignment.due.thisweek = false;
+							assignment.due.upcomming = false;
+
+
+							if((assignmentDueDate.day < dateBreakout.day) && (assignmentDueDate.month <= dateBreakout.month) && (assignmentDueDate.year <= dateBreakout.year)){
+								assignment.due.overdue = true;
+							}else if((assignmentDueDate.day === dateBreakout.day) && (assignmentDueDate.month === dateBreakout.month) && (assignmentDueDate.year === dateBreakout.year)){
+								assignment.due.today = true;
+							}else if ((assignmentDueDate.day === (dateBreakout.day+1)) && (assignmentDueDate.month === dateBreakout.month) && (assignmentDueDate.year === dateBreakout.year)){
+								assignment.due.tomorrow = true;
+							}else if(((assignmentDueDate.day - dateBreakout.day) < 8) && ((assignmentDueDate.day - dateBreakout.day) >= 2) && (assignmentDueDate.month === dateBreakout.month) && (assignmentDueDate.year === dateBreakout.year)){
+								assignment.due.thisWeek = true;
+							}else{
+								assignment.due.upcomming = true;
+							}
+
+							assignment.save();
+
+
+
+
+						});
+
+
 						res.render("semester/showClass", {classData: queryClass, weekDays: weekDays});
 					}
 				});

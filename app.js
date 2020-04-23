@@ -10,7 +10,8 @@ var indexRoutes			= require("./routes/index"),
 	semesterRoutes		= require("./routes/semester"),
 	assignmentRoutes	= require("./routes/assignments");
 
-var User 				= require("./models/user")
+var User 				= require("./models/user"),
+	Semester 			= require("./models/semester");
 
 
 
@@ -51,6 +52,21 @@ app.use(methodOverride("_method"));
 app.use(indexRoutes);
 app.use("/class/:class_id/Assignment/", assignmentRoutes);
 app.use(semesterRoutes);
+
+app.get("/calendar", function(req, res){
+	res.render("index/calendar");
+});
+
+app.get("/calendar/semesterData", function(req, res){
+	Semester.find({}).populate({path: 'classes.assignments'}).exec(function(err, foundSemesters){
+		if(err){
+			console.log(err);
+		}else{
+			res.send(foundSemesters[0].classes);
+		}
+	})
+	
+});
 
 
 app.listen(3000, 'localhost', function(){

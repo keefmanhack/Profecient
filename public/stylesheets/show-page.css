@@ -44,11 +44,45 @@
 		margin-right: 15px;
 		margin-bottom: 15px;
 		margin-top: 15px;
+		padding: .5% 0 0.5% 0;
 		background-color: #3185FC;
 
 		border-radius: 25px;
 
 	}
+
+	.assignment-list .assignment-list-header .row{
+		margin-right: 50%;
+    	padding: 17px 0px 17px 0;
+	}
+
+	.assignment-list .assignment-list-header h5{
+		margin: 10% 0 10% 0;
+    	font-size: 1.5em;
+    	color: #171D1C;
+    	font-weight: 700;
+	}
+
+	.assignment-list #due-over{
+		background-color: red;
+	}
+
+	.assignment-list #due-today{
+		background-color: orange;
+	}
+
+	.assignment-list #due-tomorrow{
+		background-color: yellow;
+	}
+
+	.assignment-list #due-this-week{
+		background-color: green;
+	}
+
+	.assignment-list #due-upcomming{
+		background-color: lightgreen;
+	}
+
 
 	.assignment-list .col{
 		text-align: center;
