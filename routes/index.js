@@ -26,7 +26,7 @@ router.post("/signup", function(req, res){
 			res.redirect("back");
 		}
 		passport.authenticate('local')(req, res, function(){
-			res.redirect("/home");
+			res.redirect("/dashboard");
 		});
 	});
  });
@@ -36,7 +36,7 @@ router.get("/login", function(req, res){
 });
 
 router.post("/login", passport.authenticate("local", {
-	successRedirect: "/home",
+	successRedirect: "/dashboard",
 	failureRedirect: "back"
 }), function(req, res){
 

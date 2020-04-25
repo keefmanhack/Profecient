@@ -53,9 +53,7 @@ app.use(indexRoutes);
 app.use("/class/:class_id/Assignment/", assignmentRoutes);
 app.use(semesterRoutes);
 
-app.get("/calendar", function(req, res){
-	res.render("index/calendar");
-});
+
 
 app.get("/calendar/semesterData", function(req, res){
 	Semester.find({}).populate({path: 'classes.assignments'}).exec(function(err, foundSemesters){

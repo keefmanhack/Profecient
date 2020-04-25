@@ -1,0 +1,73 @@
+<%- include("../../partials/header") %>
+
+<script type="text/javascript">
+	$( function() {
+    	$( "#date" ).datepicker();
+  	});
+</script>
+
+<div class="newEvent">
+	<h1>New Event</h1>
+
+	<form action="/event/new" method="POST">
+		<div class="row form-group">
+			<label class="col-form-label col-sm-3">Title:</label>
+			<div class="col-sm-9">
+				<input class="form-control" type="text" name="event[name]">
+			</div>
+		</div>
+		<div class="row form-group">
+			<label class="col-form-label col-sm-3" for="date">Date</label>
+			<div class="col-sm-9">
+				<input class="form-control inline" id="date" type="text" name="event[date]">
+			</div>
+		</div>
+		<div class="row form-group">
+			<label class="col-form-label col-sm-3">Start Time:</label>
+			<div class="col-sm-3 time">
+				<input class="form-control" type="number" min="1" max="12" name="event[time][startHour]">
+			</div>
+			<!-- <label id="colon" class="col-sm-1 col-form-label">:</label> -->
+			<div class="col-sm-3 time">
+				<input class="form-control" type="number" min="0" max="60" name="event[time][startMinute]">
+			</div>
+			<div class="col-sm-3 time">
+				<select class="form-control" name="event[time][startAMPM]">
+					<option value="AM">AM</option>
+					<option value="PM">PM</option>
+				</select>
+			</div>
+		</div>
+		<div class="row form-group">
+			<label class="col-form-label col-sm-3">End Time:</label>
+			<div class="col-sm-3 time">
+				<input class="form-control" type="number" min="1" max="12" name="event[time][endHour]">
+			</div>
+			<!-- <label id="colon" class="col-sm-1 col-form-label">:</label> -->
+			<div class="col-sm-3 time">
+				<input class="form-control" type="number" min="0" max="60" name="event[time][endMinute]">
+			</div>
+			<div class="col-sm-3 time">
+				<select class="form-control" name="event[time][endAMPM]">
+					<option value="AM">AM</option>
+					<option value="PM">PM</option>
+				</select>
+			</div>
+		</div>
+
+		<div class="row form-group">
+			<label class="col-form-label col-sm-3">Description:</label>
+			<div class="col -sm-9">
+				<textarea name="event[description]" class="form-control"></textarea>
+			</div>
+		</div>
+		<div class="row form-group">
+			<div class="col-sm-12">
+				<button class="btn btn-primary">Add Event</button>
+			</div>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript" src='scripts/events.js'></script>
+<%- include("../../partials/footer") %>

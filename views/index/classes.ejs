@@ -1,17 +1,18 @@
 <%- include("../../partials/header") %>
+	
+	<%if(semesters.length === 0){%>
+		<div class="jumbotron jumbotron-fluid">
+			<div class="container">
+				<h1 class="display-4"><i class="fas fa-apple-alt"></i> Welcome to Profecient</h1>
+			    <p class="lead">A Fantstastically integrated scheduling tool!</p>
+			    <hr class="my-4">
+			    <p>Get started today by creating your first semester</p>
+			    <a class="btn btn-primary btn-lg" href="/newsemester" role="button">Create New Semester</a>
 
 
-	<div class="jumbotron jumbotron-fluid">
-		<div class="container">
-			<h1 class="display-4"><i class="fas fa-apple-alt"></i> Welcome to Profecient</h1>
-		    <p class="lead">A Fantstastically integrated scheduling tool!</p>
-		    <hr class="my-4">
-		    <p>Get started today by creating your first semester</p>
-		    <a class="btn btn-primary btn-lg" href="/newsemester" role="button">Create New Semester</a>
-
-
+			</div>
 		</div>
-	</div>
+	<%}%>
 	  
 	<%if(Object.keys(semesters).length){%>
 		<h1 class="title indent">
@@ -113,13 +114,6 @@
 		</div>
 	<%}%>
 
-		
-	
-	
-
-
-
-
-<script   src="/scripts/home.js" crossorigin="anonymous"></script>
+<script   src="/scripts/classes.js" crossorigin="anonymous"></script>
 
 <%- include("../../partials/footer") %>

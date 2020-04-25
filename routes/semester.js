@@ -5,7 +5,12 @@ var express = require("express"),
 var Semester = require("../models/semester");
 
 var weekDays = ['Mon.', 'Tues.', 'Wed.', 'Thurs.', 'Fri.', 'Sat.', 'Sun.'];
-router.get("/home", middleWare.isLoggedIn, function(req, res){
+
+router.get("/calendar", middleWare.isLoggedIn, function(req, res){
+	res.render("index/calendar");
+});
+
+router.get("/dashboard", middleWare.isLoggedIn, function(req, res){
 
 	Semester.find({})
 		.populate({
@@ -15,10 +20,20 @@ router.get("/home", middleWare.isLoggedIn, function(req, res){
 			if(err){
 				console.log(err);
 			}else{
-				res.render("index/home", {semesters: allSemesters, weekDays: weekDays});
+				res.render("index/dashboard", {semesters: allSemesters, weekDays: weekDays});
 			}
 	});
 });
+
+router.get("/classes", middleWare.isLoggedIn, function(req, res){
+	Semester.find({}, function(err, allSemesters){
+		if(err){
+			console.log(err);
+		}else{
+			res.render("index/classes", {semesters: allSemesters, weekDays: weekDays});
+		}
+	})
+})
 
 router.get("/newsemester", middleWare.isLoggedIn, function(req, res){
 	res.render("semester/newsemester");

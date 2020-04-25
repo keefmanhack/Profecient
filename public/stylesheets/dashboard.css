@@ -1,0 +1,114 @@
+.home{
+	margin: 10px;
+}
+
+.class-view{
+    margin-bottom: 50px;
+    padding-right: 9px;
+}
+
+.class-view .row>*{
+	padding-right: 0px;
+}
+
+.left-section{
+	width: 70%;
+}
+
+.home th{
+	width: 10%;
+	height: 128px;
+	vertical-align: top;
+	text-align: left;
+	cursor: pointer;
+    border-radius: 25px;
+    padding-top: 10px;
+}
+
+.home .th-space:hover{
+	border: 4px solid red;
+}
+
+
+.home table{
+	display: inline;
+}
+.home table thead tr th *{
+	display: block;
+}
+
+#location{
+	padding-left: 15px;
+}
+
+.right-section{
+	width: 28%;
+	margin-left: 1%;
+	margin-right: 1%;
+	padding: 5px;
+}
+
+.right-section .today{
+	background: #bde7ff;
+    border-radius: 25px;
+    padding: 0 10px 10px 10px;
+}
+
+.right-section .today .class{
+	background: rgba(49, 133, 252, .6);
+	margin-bottom: 30px;
+	padding-left: 10px;
+	border-radius: 25px;
+	box-shadow: 10px 10px;
+    margin-right: 30px;
+}
+
+.right-section .today h3{
+  	margin-left: 11%;
+    font-size: 1rem;
+}
+
+.right-section .today .class h2{
+	margin: 2%;
+	font-size: .75rem;
+}
+
+.right-section .today .class h1{
+ 	font-size: 2rem;
+ 	margin-left: 10%;
+}
+
+.table-background .selected{
+	border: 4px solid red;
+}
+
+
+
+.th-space{
+	margin: 0 5px;
+	margin-bottom: 30px;
+    background-color: #bde7ff;
+    border-radius: 25px;
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-right: 10px;
+    padding-bottom: 7px;
+    border: 4px solid transparent;
+    box-shadow: 0px 7px;
+}
+
+.th-space div{
+	border-radius: 10px;
+    padding: 0 5px;
+    color: white;
+}
+
+.th-space .day,.date{
+	font-family: 'Comic Neue', cursive, 700;
+}
+
+.week-agenda .table-background{
+	background: rgb(49, 133, 252);
+    border-radius: 25px;
+    margin-bottom: 5px;
+}

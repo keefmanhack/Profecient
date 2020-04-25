@@ -1,0 +1,170 @@
+<%- include("../../partials/header") %>
+
+<div class="home">
+	<div class="left-section float-left">
+		<div class="week-agenda">
+			<h1 id="date"></h1>
+			<div class="table-background">
+				<table>
+				<thead>
+					<tr>
+				      <th scope="col">
+				      	<div class="th-space">
+				      		<span class="day">Sunday</span>
+				      		<span class="date"></span>
+				      	</div>
+				      	
+				      </th>
+				      <th scope="col">
+				      	<div class="th-space">
+				      		<span class="day">Monday</span>
+				      		<span class="date"></span>
+				      	</div>
+				      </th>
+				      <th scope="col">
+				      	<div class="th-space">
+					      	<span class="day">Tuesday</span>
+					      	<span class="date"></span>
+				      	</div>
+				      </th>
+				      <th scope="col">
+				      	<div class="th-space">
+				      		<span class="day">Wednesday</span>
+				      		<span class="date"></span>
+				      	</div>
+				      </th>
+				      <th scope="col">
+				      	<div class="th-space">
+					      	<span class="day">Thursday</span>
+					      	<span class="date"></span>	
+				      	</div>
+				      </th>
+				      <th scope="col">
+				      	<div class="th-space">
+					      	<span class="day">Friday</span>
+					      	<span class="date"></span>				      		
+				      	</div>
+				      </th>
+				      <th scope="col">
+				      	<div class="th-space">
+					      	<span class="day">Saturday</span>
+					      	<span class="date"></span>				      		
+				      	</div>
+				      </th>
+					</tr>
+				</thead>
+			</table>
+			</div>
+		</div>
+<!-- 		<div class="buttons">
+			<a class="btn btn-primary" href="">New Assignment</a>
+			<a class="btn btn-primary" href="">New Event</a>
+		</div> -->
+
+		<div class="class-view">
+			<%if(Object.keys(semesters).length){%>
+				<div class="row">
+					<%semesters[0].classes.forEach(function(o){%>
+						<div class="col-md-4 col-sm-12">
+							<div class='blocks round'>
+								<div class="className round">
+									<h2>
+										<button class="dropdown className">
+										<i class="fa fa-angle-down"></i>
+										<%=o.name%>
+										</button> 
+									</h2>
+									<div class="content round">
+										<div class="row week homePage details">
+											<%var ct =0;%>
+											<%for(day in o.days){%>
+												<%if (ct >3 & ct<11) {%>
+													<div class="col-auto">
+														<div class="col-md-1 week homePage">
+															<%if(o.days[day]){%>
+																<span class="dayOfWeek True homePage">
+																	<h5 class="day">
+																		<%=weekDays[ct-4]%>	
+																	</h5>
+																</span>
+															<%}else{%>
+																<span class="dayOfWeek homePage False">
+																	<h5 class="day">
+																		<%=weekDays[ct-4]%>
+																	</h5>
+																</span>
+															<%}%>
+														</div>
+													</div>
+												<%}else if(ct>11){%>
+													<%break%>
+												<%}%>
+												
+												<%ct++;%>
+											<%}%>
+										</div>
+										<div class="row details">
+											<div class="col">
+												<h3 class="instructLoc">
+													<span class="blackText">
+														<%=o.time.startHour%>:<%=o.time.startMinute%> <%=o.time.startAMPM%>
+													</span> 
+													-
+													<span class="blackText">
+														<%=o.time.endHour%>:<%=o.time.endMinute%> <%=o.time.endAMPM%>
+													</span>  
+												</h3>
+											</div>
+										</div>
+										<div class="row details">
+											<div class="col-sm-4   ">
+												<h3 class="instructLoc">
+													<span class="">
+														<%=o.instructor%>
+													</span>
+												</h3>
+											</div>
+											<div class="col">
+												<h3 id="location" class="instructLoc">
+													<span class="">
+														<%=o.location%>
+													</span>
+												</h3>
+											</div>
+										</div>
+
+
+
+										<div class="row details">
+											<div class="col-sm-4">
+												<a class="btn btn-primary" href="/class/<%=o._id%>">Details</a>
+											</div>
+											<div id="new-assignment" class="col-sm-4">
+												<a class="btn btn-primary" href="/class/<%=o._id%>/Assignment/new">New Assignment</a>
+											</div>
+										</div>
+									</div> 
+								</div>
+							</div>
+						</div>
+					<%})%>
+				</div>
+			<%}%>
+		</div>
+
+	</div>
+		
+	<div class="right-section float-right">
+		<div class="today">
+			<h1>Agenda</h1>
+			<hr>
+			<h2 class="agenda-date"></>
+			<div class="updated-info">
+				
+			</div>
+		</div>
+	</div>
+</div>
+
+<script   src="/scripts/dashboard.js" crossorigin="anonymous"></script>
+<%- include("../../partials/footer") %>

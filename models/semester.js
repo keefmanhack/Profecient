@@ -26,11 +26,11 @@ var semesterSchema = new mongoose.Schema({
 				},
 			time:
 				{
-					startHour: Number,
-					startMinute: Number,
+					startHour: String,
+					startMinute: String,
 					startAMPM: String,
-					endHour: Number,
-					endMinute: Number,
+					endHour: String,
+					endMinute: String,
 					endAMPM: String
 				},
 			assignments: [{

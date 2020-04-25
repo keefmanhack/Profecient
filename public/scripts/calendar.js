@@ -32,8 +32,8 @@ function showCalendar(year, month){
 	var ct =1;
 	var text = "";
 
-	$("h1")[0].textContent = Months[date.getMonth()];
-	$("h2")[0].textContent = date.getFullYear();
+	$(".calendar h1")[0].textContent = Months[date.getMonth()];
+	$(".calendar h2")[0].textContent = date.getFullYear();
 
 	for(var i =0; i< rows; i++){
 		var rowText =[];
@@ -54,7 +54,7 @@ function showCalendar(year, month){
 		}
 
 		text += `</tr>`;
-  		$("tbody").append(text);
+  		$(".calendar tbody").append(text);
 	}
 
 	NotInMonth(); //grey out unused dates
@@ -85,26 +85,26 @@ function numOfDaysInMonth(year, month){
 }
 
 function clearCalendar(){
-	$("tbody").empty();
+	$(".calendar tbody").empty();
 }
 
 function NotInMonth(){
 	var firstLast = [];
-	for(var i =0; i<$("tbody th").length; i++){
-		if($("tbody th span")[i].textContent == 1){
+	for(var i =0; i<$(".calendar tbody th").length; i++){
+		if($(".calendar tbody th span")[i].textContent == 1){
 			firstLast.push(i);
 		}
 	}
 
 	if(firstLast[0] >0){
-		$("tbody th").slice(0, firstLast[0]).addClass("muted");
+		$(".calendar tbody th").slice(0, firstLast[0]).addClass("muted");
 	}
 	if(firstLast[1]){
-		$("tbody th").slice(firstLast[1], $("tbody th").length).addClass("muted");
+		$(".calendar tbody th").slice(firstLast[1], $(".calendar tbody th").length).addClass("muted");
 	}
 }
 
-$("#month-back").click(function(){
+$(".calendar #month-back").click(function(){
 	if(currentMonth-1 < 0){
 		currentMonth = 11;
 		currentYear--;
@@ -115,7 +115,7 @@ $("#month-back").click(function(){
 	
 });
 
-$("#month-next").click(function(){
+$(".calendar #month-next").click(function(){
 	if(currentMonth+1 > 11){
 		currentMonth = 0;
 		currentYear++;
@@ -147,15 +147,15 @@ function showAssignments(){
 			if (currentMonth === dueMonth && currentYear === dueYear){
 				var dueDay = parseInt(dueDate[1]);
 
-				for(var i =0; i<$("tbody th").length; i++){
-					if(($("tbody th span")[i].textContent == dueDay) && !($("tbody th").slice(i, i+1).hasClass('muted'))){
-						$("tbody th").slice(i, i+1).append(`<div ` + `class=` + o._id + `><p>` + assignment.name + `</p></div>`);
+				for(var i =0; i<$(".calendar tbody th").length; i++){
+					if(($(".calendar tbody th span")[i].textContent == dueDay) && !($(".calendar tbody th").slice(i, i+1).hasClass('muted'))){
+						$(".calendar tbody th").slice(i, i+1).append(`<div ` + `class=` + o._id + `><p>` + assignment.name + `</p></div>`);
 					}
 				}
 			}
 		});
 
-		$("." + o._id).css('background', colors[ct]);
+		$(".calendar ." + o._id).css('background', colors[ct]);
 
 		//add Legend
 		if(o.assignments.length >0){
@@ -172,7 +172,7 @@ function showAssignments(){
 }
 
 function attachAssignmentListeners(classes){
-	$("tbody th div").click(function(){
+	$(".calendar tbody th div").click(function(){
 		var foundAssignment;
 		var foundClass;
 		var assignmentName = $(this).text();

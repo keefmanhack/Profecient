@@ -11,13 +11,14 @@
 .calendar{
 	background-color: white;
 	z-index: 1;
+	size: 100%;
 }
 
-tbody{
+.calendar tbody{
 	background-color: #f7f9ff;
 }
 
-thead{
+.calendar thead{
 	background-color: #f7f9ff;
 }
 
