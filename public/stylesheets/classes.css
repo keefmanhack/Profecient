@@ -1,3 +1,19 @@
+.truncate {
+  width: 97%;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: inherit;
+}
+
+.hide-overflow{
+	overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: inherit;
+}
+
 .blackText{
 	color: #171D1C;
 }
@@ -29,6 +45,10 @@
 	margin-left: 9px;
 	padding-bottom: 5px;
 }
+
+/*.className h2{
+	width:max-content;
+}*/
 
 .dayOfWeek{
 	
@@ -114,4 +134,8 @@ span h5{
 
 .week span:first-of-type{
 	margin-top: 50px;
+}
+
+.blue-text{
+	color:#3185FC;
 }

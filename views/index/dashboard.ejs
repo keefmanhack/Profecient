@@ -5,153 +5,150 @@
 		<div class="week-agenda">
 			<h1 id="date"></h1>
 			<div class="table-background">
-				<table>
-				<thead>
-					<tr>
-				      <th scope="col">
-				      	<div class="th-space">
+				<div class="row">
+					<div class="col-md-auto">
+						<div class="th-space">
 				      		<span class="day">Sunday</span>
 				      		<span class="date"></span>
 				      	</div>
-				      	
-				      </th>
-				      <th scope="col">
-				      	<div class="th-space">
-				      		<span class="day">Monday</span>
+					</div>
+					<div class="col-md-auto">
+						<div class="th-space">
+				      		<span class="day">Sunday</span>
 				      		<span class="date"></span>
 				      	</div>
-				      </th>
-				      <th scope="col">
-				      	<div class="th-space">
-					      	<span class="day">Tuesday</span>
-					      	<span class="date"></span>
-				      	</div>
-				      </th>
-				      <th scope="col">
-				      	<div class="th-space">
-				      		<span class="day">Wednesday</span>
+					</div>
+					<div class="col-md-auto">
+						<div class="th-space">
+				      		<span class="day">Sunday</span>
 				      		<span class="date"></span>
 				      	</div>
-				      </th>
-				      <th scope="col">
-				      	<div class="th-space">
-					      	<span class="day">Thursday</span>
-					      	<span class="date"></span>	
+					</div>
+					<div class="col-md-auto">
+						<div class="th-space">
+				      		<span class="day">Sunday</span>
+				      		<span class="date"></span>
 				      	</div>
-				      </th>
-				      <th scope="col">
-				      	<div class="th-space">
-					      	<span class="day">Friday</span>
-					      	<span class="date"></span>				      		
+					</div>
+					<div class="col-md-auto">
+						<div class="th-space">
+				      		<span class="day">Sunday</span>
+				      		<span class="date"></span>
 				      	</div>
-				      </th>
-				      <th scope="col">
-				      	<div class="th-space">
-					      	<span class="day">Saturday</span>
-					      	<span class="date"></span>				      		
+					</div>
+					<div class="col-md-auto">
+						<div class="th-space">
+				      		<span class="day">Sunday</span>
+				      		<span class="date"></span>
 				      	</div>
-				      </th>
-					</tr>
-				</thead>
-			</table>
+					</div>
+					<div class="col-md-auto">
+						<div class="th-space">
+				      		<span class="day">Sunday</span>
+				      		<span class="date"></span>
+				      	</div>
+					</div>
+				</div>
 			</div>
 		</div>
-<!-- 		<div class="buttons">
-			<a class="btn btn-primary" href="">New Assignment</a>
-			<a class="btn btn-primary" href="">New Event</a>
-		</div> -->
 
-		<div class="class-view">
+		<%if(semesters){%>
 			<%if(Object.keys(semesters).length){%>
-				<div class="row">
-					<%semesters[0].classes.forEach(function(o){%>
-						<div class="col-md-4 col-sm-12">
-							<div class='blocks round'>
-								<div class="className round">
-									<h2>
-										<button class="dropdown className">
-										<i class="fa fa-angle-down"></i>
-										<%=o.name%>
-										</button> 
-									</h2>
-									<div class="content round">
-										<div class="row week homePage details">
-											<%var ct =0;%>
-											<%for(day in o.days){%>
-												<%if (ct >3 & ct<11) {%>
-													<div class="col-auto">
-														<div class="col-md-1 week homePage">
-															<%if(o.days[day]){%>
-																<span class="dayOfWeek True homePage">
-																	<h5 class="day">
-																		<%=weekDays[ct-4]%>	
-																	</h5>
-																</span>
-															<%}else{%>
-																<span class="dayOfWeek homePage False">
-																	<h5 class="day">
-																		<%=weekDays[ct-4]%>
-																	</h5>
-																</span>
-															<%}%>
+				<div class="semester-title">
+					<h1><%=semesters.name%> <span id="edit-semester"><a href="semester/<%=semesters._id%>/update"><i class="fas fa-edit"></i></a></span></h1>
+				</div>
+
+				<div class="class-view">
+					<div class="row">
+						<%semesters.classes.forEach(function(o){%>
+							<div class="col-md-4 col-sm-12">
+								<div class='blocks round'>
+									<div class="className round">
+										<h2 class="">
+											<button class="dropdown className truncate">
+											<i class="fa fa-angle-down"></i>
+											<%=o.name%>
+											</button> 
+										</h2>
+										<div class="content round">
+											<div class="row week homePage details">
+												<%var ct =0;%>
+												<%for(day in o.days){%>
+													<%if (ct>0 && ct<8) {%>
+														<div class="col-auto">
+															<div class="col-md-1 week homePage">
+																<%if(o.days[day]){%>
+
+																	<span class="dayOfWeek True homePage">
+																		<h5 class="day">
+																			<%=weekDays[ct-1]%>	
+																		</h5>
+																	</span>
+																<%}else{%>
+																	<span class="dayOfWeek homePage False">
+																		<h5 class="day">
+																			<%=weekDays[ct-1]%>
+																		</h5>
+																	</span>
+																<%}%>
+															</div>
 														</div>
-													</div>
-												<%}else if(ct>11){%>
-													<%break%>
+													<%}else if(ct>11){%>
+														<%break%>
+													<%}%>
+													
+													<%ct++;%>
 												<%}%>
-												
-												<%ct++;%>
-											<%}%>
-										</div>
-										<div class="row details">
-											<div class="col">
-												<h3 class="instructLoc">
-													<span class="blackText">
-														<%=o.time.startHour%>:<%=o.time.startMinute%> <%=o.time.startAMPM%>
-													</span> 
-													-
-													<span class="blackText">
-														<%=o.time.endHour%>:<%=o.time.endMinute%> <%=o.time.endAMPM%>
-													</span>  
-												</h3>
 											</div>
-										</div>
-										<div class="row details">
-											<div class="col-sm-4   ">
-												<h3 class="instructLoc">
-													<span class="">
-														<%=o.instructor%>
-													</span>
-												</h3>
+											<div class="row details">
+												<div class="col">
+													<h3 class="instructLoc">
+														<span class="blackText">
+															<%=o.time.startHour%>:<%=o.time.startMinute%> <%=o.time.startAMPM%>
+														</span> 
+														-
+														<span class="blackText">
+															<%=o.time.endHour%>:<%=o.time.endMinute%> <%=o.time.endAMPM%>
+														</span>  
+													</h3>
+												</div>
 											</div>
-											<div class="col">
-												<h3 id="location" class="instructLoc">
-													<span class="">
-														<%=o.location%>
-													</span>
-												</h3>
+											<div class="row details">
+												<div class="col-sm-4">
+													<h3 class="instructLoc hide-overflow">
+														<span class="">
+															<%=o.instructor%>
+														</span>
+													</h3>
+												</div>
+												<div class="col-sm-7">
+													<h3 id="location" class="instructLoc hide-overflow">
+														<span class="">
+															<%=o.location%>
+														</span>
+													</h3>
+												</div>
 											</div>
-										</div>
 
 
 
-										<div class="row details">
-											<div class="col-sm-4">
-												<a class="btn btn-primary" href="/class/<%=o._id%>">Details</a>
+											<div class="row details">
+												<div class="col-sm-4">
+													<a class="btn btn-primary" href="/class/<%=o._id%>">Details</a>
+												</div>
+												<div id="new-assignment" class="col-sm-4">
+													<a class="btn btn-primary" href="/class/<%=o._id%>/Assignment/new">New Assignment</a>
+												</div>
 											</div>
-											<div id="new-assignment" class="col-sm-4">
-												<a class="btn btn-primary" href="/class/<%=o._id%>/Assignment/new">New Assignment</a>
-											</div>
-										</div>
-									</div> 
+										</div> 
+									</div>
 								</div>
 							</div>
-						</div>
-					<%})%>
+						<%})%>
+					</div>
 				</div>
 			<%}%>
-		</div>
-
+		<%}%>
 	</div>
 		
 	<div class="right-section float-right">

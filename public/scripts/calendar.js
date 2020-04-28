@@ -1,4 +1,4 @@
-var colors = ['#ff7e75', '#ffc875', '#75ff7e', '#75ccff', '#fa75ff'];
+var colors = ['#ff7e75', '#ffc875', '#758aff', '#75ccff', '#fa75ff','#b575ff', '#7577ff', '#ffa175', '#ff759e', '#9375ff'];
 
 var Months = ["January", "Febuary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 var DaysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -192,8 +192,10 @@ function attachAssignmentListeners(classes){
 		$(".popup-info .description").text(foundAssignment.description);
 
 		var editPath = "/class/" + foundClass._id + "/Assignment/" + foundAssignment._id + "/edit"; 
-		var deletePath = "/class/" + foundClass._id + "/Assignment/" + foundAssignment._id + "/?_method=DELETE"
+		var deletePath = "/class/" + foundClass._id + "/Assignment/" + foundAssignment._id + "/?_method=DELETE";
+		var goToShowPagePath = "/class/" + foundClass._id;
 
+		$(".popup-info .go-to-show-page").attr("href", goToShowPagePath);
 		$(".popup-info .edit").attr("href", editPath);
 		$(".popup-info .delete").attr("action", deletePath);
     	$(".popup-info").toggleClass("show");
@@ -206,6 +208,7 @@ function server(){
 	xhttp.onreadystatechange = function() {
     	if (this.readyState == 4 && this.status == 200) {
     		setClassData(this.responseText);
+    		showAssignments();
     	}
   	}
 
@@ -216,8 +219,6 @@ function server(){
 
 function setClassData(classTextData){
 	classData = JSON.parse(classTextData);
-	showAssignments();
-	
 }
 
 function getClassData(){

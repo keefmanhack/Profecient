@@ -32,6 +32,7 @@
 		background-color: #171D1C;
 		margin-left: 16%;
 		margin-right: 16%;
+		margin-bottom: 100px;
 		padding-top: 10px;
 		padding-bottom: 10px;
 		color: white;
@@ -113,13 +114,34 @@
 		z-index: 2; 
 		position: absolute;
 		display: none;
-		padding: 50px 50px 50px 50px;
+		padding: 10px;
 		background-color: #171D1C;
 		border-radius: 25px;
 	}
 
-	.details:hover + .details-description{
+	.assignment-list .col .details-description button{
+		background-color: transparent;
+		color: #3185FC;
+		border: none;
+		float:right;
+	}
+	.assignment-list .col .details-description.show{
 		display: block;
+	}
+
+	.assignment-description:hover{
+		color: black;
+		cursor: pointer;
+	}
+
+	.assignment-list .col .details-description button:hover{
+		color: white;
+		cursor: pointer;
+	}
+
+	.edit-delete *{
+		background:none;
+		color: white;
 	}
 
 	.row .col .btn-primary{

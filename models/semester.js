@@ -9,36 +9,10 @@ var semesterSchema = new mongoose.Schema({
 		},
 		username: String
 	},
-	classes: [
-		{
-			name: String,
-			instructor: String,
-			location: String,
-			days: 
-				{
-					monday: Boolean,
-					tuesday: Boolean,
-					wednesday: Boolean,
-					thursday: Boolean,
-					friday: Boolean,
-					saturday: Boolean,
-					sunday: Boolean
-				},
-			time:
-				{
-					startHour: String,
-					startMinute: String,
-					startAMPM: String,
-					endHour: String,
-					endMinute: String,
-					endAMPM: String
-				},
-			assignments: [{
-				type: mongoose.Schema.Types.ObjectId,
-				ref: "Assignment"
-			}]
-		}
-	]
+	classes: [{ 
+		type: mongoose.Schema.Types.ObjectId,
+		ref: "Class"
+	}]
 });
 
 module.exports = mongoose.model("Semester", semesterSchema);

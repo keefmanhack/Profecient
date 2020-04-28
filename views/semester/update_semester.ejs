@@ -1,0 +1,176 @@
+<%- include("../../partials/header") %>
+
+<div class="container">
+	<h1>Update semester</h1>
+
+	<form class="needs-validation" action="/newsemester" method="POST" novalidate>
+		<div class="row">
+			<div class="col-sm-8">
+				<input type="text" class="form-control" name="semesterName" placeholder="Name" value='<%=semesterData.name%>' required>
+				<div class="invalid-feedback">
+				 <i class="fas fa-exclamation-circle"></i>
+				</div>
+				<div class="valid-feedback">
+					<i class="fas fa-check"></i>
+				</div>
+			</div>
+			<div class="col-sm-2">
+				<input type="submit" value="Complete" class="btn btn-success">
+			</div>
+		</div>
+
+		<hr>
+
+		<%semesterData.classes.forEach(function(o){%>
+			<div class="newClass">
+				<div class="row">
+					<div class="col-sm-3">
+						<input type="text" class="form-control" name="class[name]" placeholder="Course Name" value="<%=o.name%>" required>
+						<div class="invalid-feedback">
+						 	<i class="fas fa-exclamation-circle"></i>
+						</div>
+						<div class="valid-feedback">
+							<i class="fas fa-check"></i>
+						</div>
+						</div>
+					<div class="col-sm-3">
+						<input type="text" class="form-control" name="class[instructor]" placeholder="Instructor" value="<%=o.instructor%>" required>
+						<div class="invalid-feedback">
+						 	<i class="fas fa-exclamation-circle"></i>
+						</div>
+						<div class="valid-feedback">
+							<i class="fas fa-check"></i>
+						</div>
+					</div>
+					<div class="col-sm-3">
+						<input type="text" class="form-control" name="class[location]" placeholder="Location" value="<%=o.location%>" required>
+						<div class="invalid-feedback">
+						 	<i class="fas fa-exclamation-circle"></i>
+						</div>
+						<div class="valid-feedback">
+							<i class="fas fa-check"></i>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="select-Days">
+						<div class="col-auto">
+							<div class="col-sm-12">
+								<input class=check type="checkbox" value="true" id="monday" name="class[days][monday]">
+								<input class=hid type="hidden" value="false" name="class[days][monday]">
+								<label class="<%= o.days.monday ? "dayChecked" : "" %>" for="monday">Monday</label>
+								<input class=check type="checkbox" id="tuesday" value="true" name="class[days][tuesday]">
+								<input class=hid type="hidden" value="false" name="class[days][tuesday]">
+								<label class="<%= o.days.tuesday ? "dayChecked" : "" %>" for="tuesday">Tuesday</label>
+								<input class=check type="checkbox" id="wednesday" value="true" name="class[days][wednesday]">
+								<input class=hid type="hidden" value="false" name="class[days][wednesday]">
+								<label class="<%= o.days.wednesday ? "dayChecked" : "" %>" for="wednesday">Wednesday</label>
+								<input class=check type="checkbox" id="thursday" value="true" name="class[days][thursday]">
+								<input class=hid type="hidden" value="false" name="class[days][thursday]">
+								<label class="<%= o.days.thursday ? "dayChecked" : "" %>" for="thursday">Thursday</label>
+								<input class=check type="checkbox" id="friday" value="true" name="class[days][friday]">
+								<input class=hid type="hidden" value="false" name="class[days][friday]">
+								<label class="<%= o.days.friday ? "dayChecked" : "" %>" for="friday">Friday</label>
+								<input class=check type="checkbox" id="saturday" value="true" name="class[days][saturday]">
+								<input class=hid type="hidden" value="false" name="class[days][saturday]">
+								<label class="<%= o.days.saturday ? "dayChecked" : "" %>" for="saturday">Saturday</label>
+								<input class=check type="checkbox" id="sunday" value="true" name="class[days][sunday]">
+								<input class=hid type="hidden" value="false" name="class[days][sunday]">
+								<label class="<%= o.days.sunday ? "dayChecked" : "" %>" for="sunday">Sunday</label>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<h5>From</h5>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-1">
+						<input placeholder="10" class="form-control" type="number" min="1" max="12" name="class[time][startHour]" value="<%=o.time.startHour%>" required>
+						<div class="invalid-feedback">
+						 	<i class="fas fa-exclamation-circle"></i>
+						</div>
+						<div class="valid-feedback">
+							<i class="fas fa-check"></i>
+						</div>
+					</div>
+					<div class="col-sm-1">
+						<input placeholder='15' class='minute form-control' type="number" min="0" max="60" name="class[time][startMinute]" onchange="if(parseInt(this.value,10)<10 && this.value !== '00')this.value='0'+this.value;" value="<%=o.time.startMinute%>" required>
+						<div class="invalid-feedback">
+						 	<i class="fas fa-exclamation-circle"></i>
+						</div>
+						<div class="valid-feedback">
+							<i class="fas fa-check"></i>
+						</div>
+					</div>
+					<div class="col-sm-1">
+						<select class="form-control" name="class[time][startAMPM]" value="<%=o.time.startAMPM%>">
+							<option value="AM">AM</option>
+							<option value="PM">PM</option>
+						</select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<h5>To</h5>
+					</div>
+				</div>
+				<div class="row">
+						<div class="col-sm-1">
+						<input placeholder="10" class="form-control" type="number" min="1" max="12" name="class[time][endHour]" value="<%=o.time.endHour%>" required>
+						<div class="invalid-feedback">
+						 	<i class="fas fa-exclamation-circle"></i>
+						</div>
+						<div class="valid-feedback">
+							<i class="fas fa-check"></i>
+						</div>
+					</div>
+					<div class="col-sm-1">
+						<input placeholder='15' class='minute form-control' type="number" min="0" max="60" name="class[time][endMinute]" onchange="if(parseInt(this.value,10)<10 && this.value !== '00')this.value='0'+this.value;" value="<%=o.time.endMinute%>" required>
+						<div class="invalid-feedback">
+						 	<i class="fas fa-exclamation-circle"></i>
+						</div>
+						<div class="valid-feedback">
+							<i class="fas fa-check"></i>
+						</div>
+					</div>
+					<div class="col-sm-1">
+						<select class="form-control" name="class[time][endAMPM]" value="<%=o.time.endAMPM%>">
+							<option value="PM">PM</option>
+							<option value="AM">AM</option>
+						</select>
+					</div>
+				</div>
+				<hr>
+			</div>
+		<%})%>
+	</form>
+</div>
+
+<script>
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.getElementsByClassName('needs-validation');
+    // Loop over them and prevent submission
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
+</script>
+
+
+<script type="text/javascript" src="/scripts/newsemester.js"></script>
+<%- include("../../partials/footer") %>

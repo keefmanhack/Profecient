@@ -1,6 +1,6 @@
 var Months = ["January", "Febuary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 var DaysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-var colors = ['#ff7e75', '#ffc875', '#758aff', '#75ccff', '#fa75ff'];
+var colors = ['#ff7e75', '#ffc875', '#758aff', '#75ccff', '#fa75ff','#b575ff', '#7577ff', '#ffa175', '#ff759e', '#9375ff'];
 var times = ["8:00 AM", "8:30 AM", "9:00 AM", "9:30 AM", "10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM", "12:00 PM", "12:30 PM" , "1:00 PM", "1:30 PM", "2:00 PM", "2:30 PM", "3:00 PM", "3:30 PM", "4:00 PM", "4:30 PM", "5:00 PM"]
 
 var weekDates;
@@ -30,16 +30,15 @@ function buildAgenda(){
 		var format = {
 			tableCell: "",
 			date: "",
-			classes: [],
-			events: [],
+			classes: []
 		}
 
-		format.tableCell = $(".week-agenda table thead tr th").slice(i, i+1);
-		format.date = $(".week-agenda table thead tr th .date")[i].textContent;
+		format.tableCell = $(".week-agenda .th-space").slice(i, i+1);
+		format.date = $(".week-agenda .th-space .date")[i].textContent;
 
 		classData.forEach(function(o){
 			Object.entries(o.days).forEach(function(day){
-				if((day[0] == $(".week-agenda table thead tr th .day")[i].textContent.toLowerCase()) && day[1]){
+				if((day[0] == $(".week-agenda .th-space .day")[i].textContent.toLowerCase()) && day[1]){
 					format.classes.push(o);
 				}
 			})
@@ -62,12 +61,17 @@ function updateAgenda(dayEvents){
 			<h2><span class="time">` + o.time.startHour + ':' + o.time.startMinute + ' ' + o.time.startAMPM  + `</span></h2>
 		</div>
 	</div>
-	<div class="row">
-		<h1><span class="course-name">` + o.name +`</span></h1>
+	<div class="row truncate">
+		<h1 class='hide-overflow'><span class="course-name hide-overflow">` + o.name +`</span></h1>
 	</div>
 	<div class="row">
-		<div class="col">
-			<h3><span class="location">` + o.location +`</span> <span class="instructor">` + o.instructor +`</span></h3>
+		<div class="col-sm-11">
+			<h3 class='hide-overflow'><span class="location">` + o.location +`</span></h3>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-11">
+			<h3 class='hide-overflow'><span class="instructor">` + o.instructor +`</span></h3>
 		</div>
 	</div>
 	<div class="row">
@@ -75,7 +79,7 @@ function updateAgenda(dayEvents){
 			<h2><span class="time">` + o.time.endHour + ':' + o.time.endMinute + ' ' + o.time.endAMPM  + `</span></h2>
 		</div>
 	</div>
-</div></div>`);
+</div></div>`).hide().show(100);
 	})
 		
 
@@ -119,7 +123,7 @@ function convertToMilitary(hour, minute, AMPM){
 	}
 }
 
-$(".left-section .week-agenda table th").click(function(){
+$(".left-section .week-agenda .th-space").click(function(){
 	var boxClicked = $(this);
 	agenda.forEach(function(item){
 		if(item.tableCell[0].textContent == boxClicked[0].textContent){
@@ -146,15 +150,11 @@ function showAssignmentss(){
 			var dueDate = assignment.dueDate.split("/");
 			var dueMonth = parseInt(dueDate[0]) -1;
 			var dueYear = parseInt(dueDate[2])
+			var dueDay = parseInt(dueDate[1]);
 
-			if (weekDates[0].getMonth() === dueMonth && weekDates[0].getFullYear() === dueYear){
-				var dueDay = parseInt(dueDate[1]);
-
-				for(var i =0; i<$(".week-agenda table thead tr th .day").length; i++){
-					if(weekDates[i].getDate() == dueDay){
-						console.log('yessir');
-						$(".week-agenda table thead tr th .th-space").slice(i, i+1).append(`<div ` + `class=` + o._id + `><p>` + assignment.name + `</p></div>`);
-					}
+			for(var i =0; i<$(".week-agenda .th-space .day").length; i++){
+				if(weekDates[i].getDate() == dueDay && weekDates[i].getMonth() === dueMonth && weekDates[i].getFullYear() === dueYear){
+					$(".week-agenda .th-space").slice(i, i+1).append(`<div class='assignment-data ` + o._id+ `'><p class='assignment-name'>` + assignment.name + `</p></div>`);
 				}
 			}
 		});
@@ -182,15 +182,15 @@ function setCurrentDay(){
 }
 
 function setTableHeader(){
-	for(var i =0; i < $(".week-agenda table thead tr th").length; i++){
+	for(var i =0; i < $(".week-agenda .th-space").length; i++){
 		if(currentDay + i <7){
-			$(".week-agenda table thead tr th .day")[i].textContent = DaysOfWeek[currentDay +i];
+			$(".week-agenda .th-space .day")[i].textContent = DaysOfWeek[currentDay +i];
 		}else{
-			$(".week-agenda table thead tr th .day")[i].textContent = DaysOfWeek[currentDay +i -7];
+			$(".week-agenda .th-space .day")[i].textContent = DaysOfWeek[currentDay +i -7];
 		}
 		var buildDate = Months[weekDates[i].getMonth()] + " " + weekDates[i].getDate()
 
-		$(".week-agenda table thead tr th .date")[i].textContent = buildDate;
+		$(".week-agenda .th-space .date")[i].textContent = buildDate;
 
 	}
 }
@@ -253,12 +253,12 @@ function server(){
 
 function showSelectedWeekDay(dayBox){
 	agenda.forEach(function(item){
-		if (item.tableCell.slice(0,1).children('.th-space').hasClass('selected')){
-			item.tableCell.slice(0,1).children('.th-space').removeClass('selected')
+		if (item.tableCell.slice(0,1).hasClass('selected')){
+			item.tableCell.slice(0,1).removeClass('selected')
 		}
 	});
 
-	dayBox.tableCell.slice(0,1).children('.th-space').addClass('selected');
+	dayBox.tableCell.slice(0,1).addClass('selected');
 }
 
 function setClassData(classTextData){
@@ -268,3 +268,12 @@ function setClassData(classTextData){
 function getClassData(){
 	return classData;
 }
+
+$(".dropdown").click(function(e){
+	var classContent = $(this).parent().next();
+	if(classContent.is(":visible")){
+		classContent.hide("fast", "linear");
+	}else{
+		classContent.show("fast", "linear");
+	}
+});

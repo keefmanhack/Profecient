@@ -4,8 +4,8 @@ var assignmentSchema = new mongoose.Schema({
 	name: String,
 	dueDate: String,
 	time: {
-		hour: Number,
-		minute: Number,
+		hour: String,
+		minute: String,
 		AMPM: String
 	},
 	description: String,

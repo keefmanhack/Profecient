@@ -9,17 +9,29 @@
 <div class="newAssignment">
 	<h1>Update Assignment for <span><%=classData.name%></span></h1>
 
-	<form action="/class/<%=classData._id%>/Assignment/<%=assignmentData._id%>/?_method=PUT" method="POST">
+	<form class="needs-validation" action="/class/<%=classData._id%>/Assignment/<%=assignmentData._id%>/?_method=PUT" method="POST" novalidate>
 		<div class="row form-group">
 			<label class="col-form-label col-sm-3">Title:</label>
 			<div class="col-sm-9">
-				<input class="form-control" type="text" name="assignment[name]" value="<%=assignmentData.name%>">
+				<input class="form-control" type="text" name="assignment[name]" value="<%=assignmentData.name%>" required>
+				<div class="invalid-feedback">
+			 		<i class="fas fa-exclamation-circle"></i>
+				</div>
+				<div class="valid-feedback">
+				 	<i class="fas fa-check"></i>
+				</div>
 			</div>
 		</div>
 		<div class="row form-group">
 			<label class="col-form-label col-sm-3" for="dueDate">Due Date:</label>
 			<div class="col-sm-9">
-				<input class="form-control inline" id="dueDate" type="text" name="assignment[dueDate]" value="<%=assignmentData.dueDate%>">
+				<input class="form-control inline" id="dueDate" type="text" name="assignment[dueDate]" value="<%=assignmentData.dueDate%>" required>
+				<div class="invalid-feedback">
+			 		<i class="fas fa-exclamation-circle"></i>
+				</div>
+				<div class="valid-feedback">
+				 	<i class="fas fa-check"></i>
+				</div>
 			</div>
 		</div>
 		<div class="row form-group">
@@ -29,7 +41,7 @@
 			</div>
 			<!-- <label id="colon" class="col-sm-1 col-form-label">:</label> -->
 			<div class="col-sm-3 time">
-				<input class="form-control" type="number" min="0" max="60" name="assignment[time][minute]" value="<%=assignmentData.time.minute%>">
+				<input class="form-control" type="number" min="0" max="60" onchange="if(parseInt(this.value,10)<10 && this.value !== '00')this.value='0'+this.value;" name="assignment[time][minute]" value="<%=assignmentData.time.minute%>">
 			</div>
 			<div class="col-sm-3 time">
 				<select class="form-control" name="assignment[time][AMPM]" value="<%=assignmentData.time.AMPM%>">
@@ -51,5 +63,26 @@
 		</div>
 	</form>
 </div>
+
+<script>
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.getElementsByClassName('needs-validation');
+    // Loop over them and prevent submission
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
+</script>
 
 <%- include("../../partials/footer") %>

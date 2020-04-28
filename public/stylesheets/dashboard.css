@@ -1,3 +1,7 @@
+button:focus{
+	outline:none !important;
+}
+
 .home{
 	margin: 10px;
 }
@@ -26,7 +30,8 @@
 }
 
 .home .th-space:hover{
-	border: 4px solid red;
+	border: 4px solid lightgreen;
+	cursor: pointer;
 }
 
 
@@ -79,10 +84,29 @@
 }
 
 .table-background .selected{
-	border: 4px solid red;
+	border: 4px solid lightgreen;
 }
 
+.semester-title{
+	background: black;
+	border-radius: 25px;
+	margin-top: 20px;
+	padding-left: 10px;
+	color: white;
+	padding-bottom: 1px;
+}
 
+.semester-title #edit-semester{
+	visibility: hidden;	
+}
+
+.semester-title #edit-semester a{
+	color: white;
+}
+
+.semester-title:hover #edit-semester{
+	visibility: visible;
+}
 
 .th-space{
 	margin: 0 5px;
@@ -95,6 +119,8 @@
     padding-bottom: 7px;
     border: 4px solid transparent;
     box-shadow: 0px 7px;
+
+    width:min-content;
 }
 
 .th-space div{
@@ -105,10 +131,35 @@
 
 .th-space .day,.date{
 	font-family: 'Comic Neue', cursive, 700;
+	display: block;
 }
 
 .week-agenda .table-background{
 	background: rgb(49, 133, 252);
     border-radius: 25px;
     margin-bottom: 5px;
+    padding: 10px;
 }
+
+.week-agenda .table-background .th-space p{
+	overflow-wrap: anywhere;
+}
+
+.week-agenda .table-background [class*="col-"]{
+	padding: 0 8px;
+}
+
+.week-agenda .assignment-data{
+	padding-left: 10px;
+	margin-bottom: 4px;
+}
+
+.week-agenda .assignment-data .assignment-name{
+	display: inline;
+}
+
+.week-agenda .assignment-data a:hover{
+	color: black;
+}
+
+

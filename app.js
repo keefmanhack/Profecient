@@ -56,11 +56,16 @@ app.use(semesterRoutes);
 
 
 app.get("/calendar/semesterData", function(req, res){
-	Semester.find({}).populate({path: 'classes.assignments'}).exec(function(err, foundSemesters){
+	Semester.findOne({}).populate({path: 'classes', populate: {path: 'assignments'}}).exec(function(err, foundSemester){
 		if(err){
 			console.log(err);
 		}else{
-			res.send(foundSemesters[0].classes);
+			try{
+				res.send(foundSemester.classes);
+			}catch(err){
+				console.log(err);
+			}
+
 		}
 	})
 	

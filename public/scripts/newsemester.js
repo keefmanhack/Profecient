@@ -22,13 +22,31 @@ newClass.click(function(){
 	form[0].insertAdjacentHTML('beforeend',`<div class="newClass">
 			<div class="row">
 				<div class="col-sm-3">
-					<input type="text" class="form-control" name="class[name]" placeholder="Course Name">
+					<input type="text" class="form-control" name="class[name]" placeholder="Course Name" required>
+					<div class="invalid-feedback">
+					 	<i class="fas fa-exclamation-circle"></i>
+					</div>
+					<div class="valid-feedback">
+						<i class="fas fa-check"></i>
+					</div>
+					</div>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="class[instructor]" placeholder="Instructor" required>
+					<div class="invalid-feedback">
+					 	<i class="fas fa-exclamation-circle"></i>
+					</div>
+					<div class="valid-feedback">
+						<i class="fas fa-check"></i>
+					</div>
 				</div>
 				<div class="col-sm-3">
-					<input type="text" class="form-control" name="class[instructor]" placeholder="Instructor">
-				</div>
-				<div class="col-sm-3">
-					<input type="text" class="form-control" name="class[location]" placeholder="Location">
+					<input type="text" class="form-control" name="class[location]" placeholder="Location" required>
+					<div class="invalid-feedback">
+					 	<i class="fas fa-exclamation-circle"></i>
+					</div>
+					<div class="valid-feedback">
+						<i class="fas fa-check"></i>
+					</div>
 				</div>
 				<div class="col-sm-2">
 					<button class="btn btn-danger" type="button">Remove Class</button>
@@ -64,35 +82,76 @@ newClass.click(function(){
 					</div>
 				</div>
 			</div>
-			
 			<div class="row">
-				<div class="col-sm-4">
-					<label>Start Time</label>
-					<input type="number" min="1" max="12" name="class[time][startHour]">
-					<label>:</label>
-					<input type="number" min="0" max="60" name="class[time][startMinute]">
-					<select name="class[time][startAMPM]">
-						<option value="AM">AM</option>
-						<option value="PM">PM</option>
-					</select>
+				<div class="col">
+					<h5>From</h5>
 				</div>
-				<div class="col-sm-4">
-					<label>End Time</label>
-					<input type="number" min="1" max="12" name="class[time][endHour]">
-					<label>:</label>
-					<input type="number" min="0" max="60" name="class[time][endMinute]">
-					<select name="class[time][endAMPM]">
+			</div>
+			<div class="row">
+				<div class="col-sm-1">
+					<input placeholder="10" class="form-control" type="number" min="1" max="12" name="class[time][startHour]" required>
+					<div class="invalid-feedback">
+					 	<i class="fas fa-exclamation-circle"></i>
+					</div>
+					<div class="valid-feedback">
+						<i class="fas fa-check"></i>
+					</div>
+				</div>
+				<div class="col-sm-1">
+					<input placeholder='15' class='minute form-control' type="number" min="0" max="60" name="class[time][startMinute]" onchange="if(parseInt(this.value,10)<10 && this.value !== '00')this.value='0'+this.value;" required>
+					<div class="invalid-feedback">
+					 	<i class="fas fa-exclamation-circle"></i>
+					</div>
+					<div class="valid-feedback">
+						<i class="fas fa-check"></i>
+					</div>
+				</div>
+				<div class="col-sm-1">
+					<select class="form-control" name="class[time][startAMPM]">
 						<option value="AM">AM</option>
 						<option value="PM">PM</option>
 					</select>
 				</div>
 			</div>
+			<div class="row">
+				<div class="col">
+					<h5>To</h5>
+				</div>
+			</div>
+			<div class="row">
+					<div class="col-sm-1">
+					<input placeholder="10" class="form-control" type="number" min="1" max="12" name="class[time][endHour]" required>
+					<div class="invalid-feedback">
+					 	<i class="fas fa-exclamation-circle"></i>
+					</div>
+					<div class="valid-feedback">
+						<i class="fas fa-check"></i>
+					</div>
+				</div>
+				<div class="col-sm-1">
+					<input placeholder='15' class='minute form-control' type="number" min="0" max="60" name="class[time][endMinute]" onchange="if(parseInt(this.value,10)<10 && this.value !== '00')this.value='0'+this.value;" required>
+					<div class="invalid-feedback">
+					 	<i class="fas fa-exclamation-circle"></i>
+					</div>
+					<div class="valid-feedback">
+						<i class="fas fa-check"></i>
+					</div>
+				</div>
+				<div class="col-sm-1">
+					<select class="form-control" name="class[time][endAMPM]">
+						<option value="PM">PM</option>
+						<option value="AM">AM</option>
+					</select>
+				</div>
+				</div>
 			<hr>
 		</div>`);
 
 	addDayChecked();
 	createFun();
 });
+
+
 
 function createFun(){
 	$("form button:contains(Remove Class)").on("click", function(){
@@ -106,6 +165,7 @@ $("form").submit(function(){
 	var checkboxes = $(".check");
 	var hiddenboxes = $(".hid");
 	var labels = $(".select-Days > .col-auto > .col-sm-12> label");
+	var times = $('.time .minute');
 
 	var ct =0;
 
@@ -127,4 +187,6 @@ $("form").submit(function(){
 		}
 	}
 });
+
+
 

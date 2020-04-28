@@ -4,26 +4,25 @@
 		<div class="row">
 			<div class="col-sm-12">
 				<h1 class="title indent"><%=classData.name%> 
-					<a class="btn btn-warning" href="/semester/<%=classData._id%>/update">Edit</a> 
 				</h1>
 			</div>
 		</div>
 
 		<div class="row indent">
 			<div class="col-sm-6">
-				<h2>Instructor: <%=classData.instructor%> </h2>
+				<h2 class="hide-overflow">Instructor: <span class="blue-text"><%=classData.instructor%></span></h2>
 			</div>
 			<div class="col-sm-6">
-				<h2>Location: <%=classData.location%> </h2>
+				<h2 class="hide-overflow">Location: <span class="blue-text"><%=classData.location%></span></h2>
 			</div>
 		</div>
 
 		<div class="row indent">
 			<div class="col">
 				<h3>From: 
-					<%=classData.time.startHour%>:<%=classData.time.startMinute%> <%=classData.time.startAMPM%> 
+					<span class="blue-text"><%=classData.time.startHour%>:<%=classData.time.startMinute%> <%=classData.time.startAMPM%> </span>
 					to
-					 <%=classData.time.endHour%>:<%=classData.time.endMinute%> <%=classData.time.endAMPM%>  
+					 <span class="blue-text"><%=classData.time.endHour%>:<%=classData.time.endMinute%> <%=classData.time.endAMPM%></span> 
 				</h3>
 			</div>
 		</div>
@@ -31,19 +30,19 @@
 		<div class="row week showPage">
 				<%var ct =0;%>
 				<%for(day in classData.days){%>
-					<%if (ct >3 & ct<11) {%>
+					<%if (ct >0 & ct<8) {%>
 						<div class="col-auto">
 							<div class="col-md-1 week showPage">
 								<%if(classData.days[day]){%>
 									<span class="dayOfWeek showPage True">
 										<h5 class="day">
-											<%=weekDays[ct-4]%>	
+											<%=weekDays[ct-1]%>	
 										</h5>
 									</span>
 								<%}else{%>
 									<span class="dayOfWeek showPage False">
 										<h5 class="day">
-											<%=weekDays[ct-4]%>	
+											<%=weekDays[ct-1]%>	
 										</h5>
 									</span>
 								<%}%>
@@ -136,5 +135,5 @@
 		</div>
 	</div>
 
-<script type="text/javascript" src="/scripts/assignmentOrdering.js"></script>
+<script type="text/javascript" src="/scripts/show-class.js"></script>
 <%- include("../../partials/footer") %>
