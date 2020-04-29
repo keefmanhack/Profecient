@@ -5,6 +5,7 @@ var express = require("express"),
 var Semester = require("../models/semester");
 var Classes = require("../models/class");
 var Assignments = require("../models/assignment");
+var User = require("../models/user");
 
 var weekDays = ['Mon.', 'Tues.', 'Wed.', 'Thurs.', 'Fri.', 'Sat.', 'Sun.'];
 
@@ -13,58 +14,62 @@ router.get("/calendar", middleWare.isLoggedIn, function(req, res){
 });
 
 router.get("/dashboard", middleWare.isLoggedIn, function(req, res){
-	// Semester.findOne({}, function(err, foundSemester){
-	// 	if(!Object.keys(foundSemester.classes).length){
-	// 		Classes.find({}, function(err, allClasses){
-	// 			allClasses.forEach(function(o){
-	// 				foundSemester.classes.push(o);
-	// 			});
-		
-	// 			foundSemester.save();
-	// 			foundSemester.populate({path: 'classes', populate: {path: 'assignments'}});
-	// 		});
-	// 	}
-	// });
 
-	Semester.findOne({}).populate({path: 'classes', populate: {path: 'assignments'}}).exec(function(err, foundSemester){
-			if(err){
-				console.log(err);
-			}else{
-				res.render("index/dashboard", {semesters: foundSemester, weekDays: weekDays});
-			}
-	});
-});
-
-router.get("/classes", middleWare.isLoggedIn, function(req, res){
-	Semester.find({}, function(err, allSemesters){
+	User.findById(req.user._id).populate({path: 'semester', populate: {path: 'classes', populate: {path: 'assignments'}}}).exec(function(err, foundUser){
 		if(err){
 			console.log(err);
 		}else{
-			res.render("index/classes", {semesters: allSemesters, weekDays: weekDays});
+			res.render('index/dashboard', {semesters: foundUser.semester, weekDays: weekDays});
 		}
-	})
-})
+	});
+});
+
+// router.get("/classes", middleWare.isLoggedIn, function(req, res){
+// 	Semester.find({}, function(err, allSemesters){
+// 		if(err){
+// 			console.log(err);
+// 		}else{
+// 			res.render("index/classes", {semesters: allSemesters, weekDays: weekDays});
+// 		}
+// 	})
+// })
 
 router.get("/newsemester", middleWare.isLoggedIn, function(req, res){
 	res.render("semester/newsemester");
 });
 
 router.post("/newsemester", middleWare.isLoggedIn, function(req, res){
-	Semester.remove({}, function(err){
+	User.findById(req.user._id, function(err, foundUser){
 		if(err){
 			console.log(err);
-		}
-	});
-
-	Classes.remove({}, function(err){
-		if(err){
-			console.log(err);
-		}
-	});
-
-	Assignments.remove({}, function(err){
-		if(err){
-			console.log(err);
+		}else{
+			if(Object.keys(foundUser) > 0){
+				Semester.findByIdAndRemove(foundUser.semester._id, function(err, foundSemester){
+					if(err){
+						console.log(err);
+					}else{
+						if(Object.keys(foundSemester) > 0){
+							foundSemester.classes.forEach(function(o){
+								Classes.findByIdAndRemove(o._id, function(err, foundClass){
+									if(err){
+										console.log(err);
+									}else{
+										if(Object.keys(foundClass) > 0){
+											foundClass.assignments.forEach(function(assignment){
+												Assignments.findByIdAndRemove(assignment._id, function(err, foundAssignment){
+													if(err){
+														console.log(err);
+													}
+												});
+											});
+										}
+									}
+								});
+							});
+						}
+					}
+				})
+			}
 		}
 	});
 	
@@ -90,74 +95,39 @@ router.post("/newsemester", middleWare.isLoggedIn, function(req, res){
 				}else{
 					newClasses.forEach(function(o){
 						newlyCreatedSemester.classes.push(o);
-					})
+					});
 					newlyCreatedSemester.save();
-					console.log(newlyCreatedSemester);
-					res.redirect('/dashboard');
+					User.findById(req.user._id, function(err, foundUser){
+						if(err){
+							console.log(err);
+						}else{
+							foundUser.semester = newlyCreatedSemester;
+							foundUser.save();
+							res.redirect('/dashboard');
+						}
+					})
 				}
-	});
+			});
 		}
 	});
-
-
-
-	
-
-
 });
 
 //cRud Classes
-router.get("/class/:id", middleWare.isLoggedIn, function(req, res){
+router.get("/class/:id", middleWare.checkClassOwnership, function(req, res){
+
 	Classes.findById(req.params.id).populate({path: 'assignments'}).exec(function(err, foundClass){
 			if(err){
 				console.log(err);
 				res.redirect("back");
 			}else{	
-				var currentDate = new Date();
-
-				var dateBreakout = {
-					day: currentDate.getDate(),
-					month: currentDate.getMonth() + 1,
-					year: currentDate.getFullYear()
-				}
-
-				foundClass.assignments.forEach(function(assignment){
-					var splitDueDate = assignment.dueDate.split("/");
-
-					const assignmentDueDate = {
-						day: parseInt(splitDueDate[1], 10),
-						month: parseInt(splitDueDate[0], 10),
-						year: parseInt(splitDueDate[2], 10) 
-					}
-
-					assignment.due.overdue = false;
-					assignment.due.today = false;
-					assignment.due.tomorrow = false;
-					assignment.due.thisweek = false;
-					assignment.due.upcomming = false;
-
-
-					if((assignmentDueDate.day < dateBreakout.day) && (assignmentDueDate.month <= dateBreakout.month) && (assignmentDueDate.year <= dateBreakout.year)){
-						assignment.due.overdue = true;
-					}else if((assignmentDueDate.day === dateBreakout.day) && (assignmentDueDate.month === dateBreakout.month) && (assignmentDueDate.year === dateBreakout.year)){
-						assignment.due.today = true;
-					}else if ((assignmentDueDate.day === (dateBreakout.day+1)) && (assignmentDueDate.month === dateBreakout.month) && (assignmentDueDate.year === dateBreakout.year)){
-						assignment.due.tomorrow = true;
-					}else if(((assignmentDueDate.day - dateBreakout.day) < 8) && ((assignmentDueDate.day - dateBreakout.day) >= 2) && (assignmentDueDate.month === dateBreakout.month) && (assignmentDueDate.year === dateBreakout.year)){
-						assignment.due.thisWeek = true;
-					}else{
-						assignment.due.upcomming = true;
-					}
-
-					assignment.save();
-				});
+				setDueDates(foundClass);
 				res.render("semester/showClass", {classData: foundClass, weekDays: weekDays});
 			}
 		});
 });
 
 //crUd Classes  ****Add checkauthorization
-router.get("/semester/:id/update", middleWare.isLoggedIn, function(req, res){
+router.get("/semester/:id/update", middleWare.checkSemesterOwnership, function(req, res){
 	Semester.findById(req.params.id).populate('classes').exec(function(err, foundSemester){
 		if(err){
 			console.log(err);
@@ -168,7 +138,7 @@ router.get("/semester/:id/update", middleWare.isLoggedIn, function(req, res){
 	});
 });
 
-router.put("/semester/:id", middleWare.isLoggedIn, function(req, res){
+router.put("/semester/:id", middleWare.checkSemesterOwnership, function(req, res){
 	var updatedSemester = {
 		name: req.body.semesterName,
 		student: {
@@ -266,6 +236,47 @@ function createTime(body, i){
 		endAMPM: body.time.endAMPM[i]
 		};
 	return newTime;
+}
+
+function setDueDates(foundClass){
+	var currentDate = new Date();
+
+	var dateBreakout = {
+		day: currentDate.getDate(),
+		month: currentDate.getMonth() + 1,
+		year: currentDate.getFullYear()
+	}
+
+	foundClass.assignments.forEach(function(assignment){
+		var splitDueDate = assignment.dueDate.split("/");
+
+		const assignmentDueDate = {
+			day: parseInt(splitDueDate[1], 10),
+			month: parseInt(splitDueDate[0], 10),
+			year: parseInt(splitDueDate[2], 10) 
+		}
+
+		assignment.due.overdue = false;
+		assignment.due.today = false;
+		assignment.due.tomorrow = false;
+		assignment.due.thisweek = false;
+		assignment.due.upcomming = false;
+
+
+		if((assignmentDueDate.day < dateBreakout.day) && (assignmentDueDate.month <= dateBreakout.month) && (assignmentDueDate.year <= dateBreakout.year)){
+			assignment.due.overdue = true;
+		}else if((assignmentDueDate.day === dateBreakout.day) && (assignmentDueDate.month === dateBreakout.month) && (assignmentDueDate.year === dateBreakout.year)){
+			assignment.due.today = true;
+		}else if ((assignmentDueDate.day === (dateBreakout.day+1)) && (assignmentDueDate.month === dateBreakout.month) && (assignmentDueDate.year === dateBreakout.year)){
+			assignment.due.tomorrow = true;
+		}else if(((assignmentDueDate.day - dateBreakout.day) < 8) && ((assignmentDueDate.day - dateBreakout.day) >= 2) && (assignmentDueDate.month === dateBreakout.month) && (assignmentDueDate.year === dateBreakout.year)){
+			assignment.due.thisWeek = true;
+		}else{
+			assignment.due.upcomming = true;
+		}
+
+		assignment.save();
+	});
 }
 
 module.exports = router;

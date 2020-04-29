@@ -50,25 +50,21 @@ app.use(express.static(__dirname + '/public')); //for js scripts
 app.use(methodOverride("_method"));
 
 app.use(indexRoutes);
-app.use("/class/:class_id/Assignment/", assignmentRoutes);
+app.use("/class/:id/Assignment/", assignmentRoutes);
 app.use(semesterRoutes);
 
 
 
 app.get("/calendar/semesterData", function(req, res){
-	Semester.findOne({}).populate({path: 'classes', populate: {path: 'assignments'}}).exec(function(err, foundSemester){
+	User.findById(req.user._id).populate({path: 'semester', populate: {path: 'classes', populate: {path: 'assignments'}}}).exec(function(err, foundUser){
 		if(err){
 			console.log(err);
 		}else{
-			try{
-				res.send(foundSemester.classes);
-			}catch(err){
-				console.log(err);
+			if(foundUser && foundUser.semester && foundUser.semester.classes){
+				res.send(foundUser.semester.classes);
 			}
-
 		}
-	})
-	
+	});
 });
 
 

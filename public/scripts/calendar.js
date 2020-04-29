@@ -6,7 +6,9 @@ var currentMonth;
 var currentYear;
 var classData;
 
-server();
+if(!classData){
+	server();
+}
 initializeCalendar();
 
 function showCalendar(year, month){

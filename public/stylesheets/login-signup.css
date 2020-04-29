@@ -1,23 +1,23 @@
-/*.login .container{
-	padding: 0 30% 0 30%;
-	background-color: #171D1C;
-	margin: 160px 0 0 0;
-}*/
-
-
-
 body{
 	background: #3185FC;
 	color: white;
+	font-family: 'Bree Serif', serif;
 }
 
 .btn{
 	width: 100%;
 	background-color: #171D1C;
+	margin-bottom: 0px;
 }
 
 form{
 	margin: 40px 35% 0 35%;
+}
+
+form i{
+	font-size: 10px;
+	text-align: left;
+	margin-top: 0px;
 }
 
 form input{
@@ -26,6 +26,21 @@ form input{
 
 .login .container{
 	text-align: center;
-	font-size: 50px;
 	margin-top: 25px;
+}
+
+.login .container h1, i{
+	font-size: 50px;
+}
+
+form div{
+	font-size: 10px;
+	text-align: left;
+}
+
+#sign-up{
+	font-size: 20px;
+	text-align: left;
+	color: black;
+	display: inherit;
 }

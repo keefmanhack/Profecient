@@ -9,13 +9,6 @@ var assignmentSchema = new mongoose.Schema({
 		AMPM: String
 	},
 	description: String,
-	student: {
-			id: {
-				type: mongoose.Schema.Types.ObjectId,
-				ref: "User"
-			},
-			username: String
-	},
 	due: {
 		overdue: {type: Boolean, default: false},
 		today: {type: Boolean, default: false},

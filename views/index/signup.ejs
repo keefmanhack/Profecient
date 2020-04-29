@@ -3,7 +3,9 @@
 <head>
 	<title>Profecient</title>
 
+	<link href="https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+ 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
  	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
 
 
@@ -17,11 +19,96 @@
 
 			<h1>Sign Up!</h1>
 
-			<form action="/signup" method="POST">
-				<input class="form-control" type="text" name="username" placeholder="username">
-				<input class="form-control" type="password" name="password" placeholder="password">
-				<button class="btn btn-primary">Sign Up</button>
+			<form class="needs-validation" action="/signup" method="POST" novalidate="">
+				<div class="row">
+					<div class="col">
+						<input class="form-control" type="text" id="firstName" name="firstName" placeholder="Steve" required>
+						<div class="invalid-feedback">
+					 		<i class="fas fa-exclamation-circle"></i>
+						</div>
+						<div class="valid-feedback">
+							<i class="fas fa-check"></i>
+						</div>
+					</div>
+					<div class="col">
+						<input class="form-control" type="text" id="lastName" name="lastName" placeholder="Smith" required>
+						<div class="invalid-feedback">
+					 		<i class="fas fa-exclamation-circle"></i>
+						</div>
+						<div class="valid-feedback">
+							<i class="fas fa-check"></i>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<input class="form-control" type="email" name="email" placeholder="profecient@domain.com" required>
+						<div class="invalid-feedback">
+					 		<i class="fas fa-exclamation-circle"></i>
+						</div>
+						<div class="valid-feedback">
+							<i class="fas fa-check"></i>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<input class="form-control" type="text" name="username" placeholder="Username" required>
+						<div class="invalid-feedback">
+					 		<i class="fas fa-exclamation-circle"></i>
+						</div>
+						<div class="valid-feedback">
+							<i class="fas fa-check"></i>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<input class="form-control" type="password" name="password" placeholder="Password" required>
+						<div class="invalid-feedback">
+					 		<i class="fas fa-exclamation-circle"></i>
+						</div>
+						<div class="valid-feedback">
+							<i class="fas fa-check"></i>
+						</div>
+					</div>
+					<div class="col">
+						<input class="form-control" type="password" placeholder="Repeat password" required>
+						<div class="invalid-feedback">
+					 		<i class="fas fa-exclamation-circle"></i>
+						</div>
+						<div class="valid-feedback">
+							<i class="fas fa-check"></i>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<input type="submit" class="btn btn-primary" value="Sign Up!">
+					</div>
+				</div>
 			</form>
 		</div>
 	</div>
+
+	<script>
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.getElementsByClassName('needs-validation');
+    // Loop over them and prevent submission
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
+</script>
 <%- include("../../partials/footer") %>

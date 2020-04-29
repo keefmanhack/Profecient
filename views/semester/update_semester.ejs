@@ -107,9 +107,14 @@
 						</div>
 					</div>
 					<div class="col-sm-1">
-						<select class="form-control" name="class[time][startAMPM]" value="<%=o.time.startAMPM%>">
-							<option value="AM">AM</option>
-							<option value="PM">PM</option>
+						<select class="form-control" name="class[time][startAMPM]">
+							<%if(o.time.startAMPM === 'AM'){%>
+								<option value="AM">AM</option>
+								<option value="PM">PM</option>
+							<%}else{%>
+								<option value="PM">PM</option>
+								<option value="AM">AM</option>
+							<%}%>
 						</select>
 					</div>
 				</div>
@@ -138,9 +143,14 @@
 						</div>
 					</div>
 					<div class="col-sm-1">
-						<select class="form-control" name="class[time][endAMPM]" value="<%=o.time.endAMPM%>">
-							<option value="PM">PM</option>
-							<option value="AM">AM</option>
+						<select class="form-control" name="class[time][endAMPM]">
+							<%if(o.time.endAMPM === 'AM'){%>
+								<option value="AM">AM</option>
+								<option value="PM">PM</option>
+							<%}else{%>
+								<option value="PM">PM</option>
+								<option value="AM">AM</option>
+							<%}%>
 						</select>
 					</div>
 				</div>
