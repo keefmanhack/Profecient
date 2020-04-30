@@ -76,7 +76,7 @@
 												<%for(day in o.days){%>
 													<%if (ct>0 && ct<8) {%>
 														<div class="col-auto">
-															<div class="col-md-1 week homePage">
+															<div class="col-auto week homePage">
 																<%if(o.days[day]){%>
 
 																	<span class="dayOfWeek True homePage">
@@ -114,15 +114,15 @@
 												</div>
 											</div>
 											<div class="row details">
-												<div class="col-sm-4">
+												<div class="col-auto">
 													<h3 class="instructLoc hide-overflow">
 														<span class="">
 															<%=o.instructor%>
 														</span>
 													</h3>
 												</div>
-												<div class="col-sm-7">
-													<h3 id="location" class="instructLoc hide-overflow">
+												<div class="col-auto">
+													<h3 style="margin-left: 25px" id="location" class="instructLoc hide-overflow">
 														<span class="">
 															<%=o.location%>
 														</span>
@@ -133,10 +133,10 @@
 
 
 											<div class="row details">
-												<div class="col-sm-4">
+												<div class="col-auto">
 													<a class="btn btn-primary" href="/class/<%=o._id%>">Details</a>
 												</div>
-												<div id="new-assignment" class="col-sm-4">
+												<div id="new-assignment" class="col-auto">
 													<a class="btn btn-primary" href="/class/<%=o._id%>/Assignment/new">New Assignment</a>
 												</div>
 											</div>

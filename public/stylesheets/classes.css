@@ -51,8 +51,7 @@
 }*/
 
 .dayOfWeek{
-	
-	border-radius: 25px;
+	-webkit-border-radius: 25px;
 	
 }
 
