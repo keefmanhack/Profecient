@@ -33,7 +33,7 @@ router.post("/signup", function(req, res){
 			res.redirect("back");
 		}
 		passport.authenticate('local')(req, res, function(){
-			res.redirect("/dashboard");
+			res.redirect("/newsemester");
 		});
 	});
  });
