@@ -21,8 +21,8 @@ mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 mongoose.set('useUnifiedTopology', true);
 
-//connect to mongoose, change PASSWORD in the future (before GITHUB)
-mongoose.connect(process.env.MONGODB_URI);
+
+mongoose.connect('mongodb+srv://keefmanjack:simple@firstdatabase-bdxnh.mongodb.net/Profecient?retryWrites=true&w=majority');
 
 //passport configuration
 app.use(require("express-session")({
