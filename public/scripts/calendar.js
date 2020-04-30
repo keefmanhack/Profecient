@@ -214,7 +214,7 @@ function server(){
     	}
   	}
 
-  	xhttp.open("GET","http://localhost:3000/calendar/semesterData", true);
+  	xhttp.open("GET","calendar/semesterData", true);
    	xhttp.send();
 
 }
