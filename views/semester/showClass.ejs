@@ -76,7 +76,7 @@
 
 				<%classData.assignments.forEach(function(assignment){%>
 					<%if(assignment.due.overdue){%>
-						<%- include("../../partials/assignments", {assignment: assignment}) %>
+						<%- include("../partials/assignments", {assignment: assignment}) %>
 					<%}%>
 				<%})%>
 			</div>
@@ -89,7 +89,7 @@
 
 				<%classData.assignments.forEach(function(assignment){%>
 					<%if(assignment.due.today){%>
-						<%- include("../../partials/assignments", {assignment: assignment}) %>
+						<%- include("../partials/assignments", {assignment: assignment}) %>
 					<%}%>
 				<%})%>
 			</div>
@@ -102,7 +102,7 @@
 
 				<%classData.assignments.forEach(function(assignment){%>
 					<%if(assignment.due.tomorrow){%>
-						<%- include("../../partials/assignments", {assignment: assignment}) %>
+						<%- include("../partials/assignments", {assignment: assignment}) %>
 					<%}%>
 				<%})%>
 			</div>
@@ -115,7 +115,7 @@
 
 				<%classData.assignments.forEach(function(assignment){%>
 					<%if(assignment.due.thisWeek){%>
-						<%- include("../../partials/assignments", {assignment: assignment}) %>
+						<%- include("../partials/assignments", {assignment: assignment}) %>
 					<%}%>
 				<%})%>
 			</div>	
@@ -128,7 +128,7 @@
 
 				<%classData.assignments.forEach(function(assignment){%>
 					<%if(assignment.due.upcomming){%>
-						<%- include("../../partials/assignments", {assignment: assignment}) %>
+						<%- include("../partials/assignments", {assignment: assignment}) %>
 					<%}%>
 				<%})%>
 			</div>	
