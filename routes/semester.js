@@ -43,18 +43,18 @@ router.post("/newsemester", middleWare.isLoggedIn, function(req, res){
 		if(err){
 			console.log(err);
 		}else{
-			if(Object.keys(foundUser) > 0){
+			if(foundUser && foundUser.semester){
 				Semester.findByIdAndRemove(foundUser.semester._id, function(err, foundSemester){
 					if(err){
 						console.log(err);
 					}else{
-						if(Object.keys(foundSemester) > 0){
+						if(foundSemester && foundSemester.classes){
 							foundSemester.classes.forEach(function(o){
 								Classes.findByIdAndRemove(o._id, function(err, foundClass){
 									if(err){
 										console.log(err);
 									}else{
-										if(Object.keys(foundClass) > 0){
+										if(foundClass && foundClass.assignments){
 											foundClass.assignments.forEach(function(assignment){
 												Assignments.findByIdAndRemove(assignment._id, function(err, foundAssignment){
 													if(err){
