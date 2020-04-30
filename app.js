@@ -22,7 +22,7 @@ mongoose.set('useCreateIndex', true);
 mongoose.set('useUnifiedTopology', true);
 
 //connect to mongoose, change PASSWORD in the future (before GITHUB)
-mongoose.connect(process.env.MONGO_DB_URI);
+mongoose.connect(process.env.MONGODB_URI);
 
 //passport configuration
 app.use(require("express-session")({
