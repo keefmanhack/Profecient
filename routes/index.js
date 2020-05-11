@@ -96,11 +96,11 @@ router.post('/forgot', function(req, res, next){
 				auth: {
 					type: 'OAuth2',
 					user: 'proficient101010@gmail.com',
-					clientId: '104184459333-7mefo7d9nsfn34ngqj8deppfo5o1taot.apps.googleusercontent.com',
-					clientSecret: 'vpGsoDvQxtdT8Uz43_9uGCbS',
-        			refreshToken: '1//04hEJg0hWBOtCCgYIARAAGAQSNwF-L9Ir28lOCCNw7U-RNUHqsPxDNsX_kcnNKbb3nELEu_jVRtHNVdUQ6bHPidLaoxOh6Z1drJw',
-        			accessToken: 'ya29.a0Ae4lvC2l2FTZPKInz0YUQIqzp8EfFgd8_xZWkVHlLR4Va9dB_dgz5S674v6FrzLOLvH7uKilSFbZmh0otoNmKwiD152gCGfv16L6oemAbgIE3tfKUPwMgR9T2cttah8KzOBZQ9zIo8kAp7iYAUf8GM_v1bylbSgawbI'
-				}
+					clientId: process.env.CLIENTID,
+					clientSecret: process.env.CLIENTSECRET,
+        			refreshToken: process.env.REFRESHTOKEN,
+        			accessToken: process.env.ACCESSTOKEN
+        		}
 			});
 			var mailOptions = {
 				to: user.email,
