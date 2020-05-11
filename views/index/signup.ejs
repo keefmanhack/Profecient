@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Profecient</title>
+	<title>Proficient</title>
 
 	<link href="https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -10,6 +10,8 @@
 
 
 	<link rel="stylesheet" type="text/css" href="/stylesheets/login-signup.css">
+
+	<script   src="https://code.jquery.com/jquery-3.4.1.min.js"   integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="   crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -19,7 +21,7 @@
 
 			<h1>Sign Up!</h1>
 
-			<form class="needs-validation" action="/signup" method="POST" novalidate="">
+			<form class="needs-validation" action="/signup" method="POST" novalidate>
 				<div class="row">
 					<div class="col">
 						<input class="form-control" type="text" id="firstName" name="firstName" placeholder="Steve" required>
@@ -64,7 +66,7 @@
 				</div>
 				<div class="row">
 					<div class="col">
-						<input class="form-control" type="password" name="password" placeholder="Password" required>
+						<input class="form-control password" type="password" name="password" placeholder="Password" required>
 						<div class="invalid-feedback">
 					 		<i class="fas fa-exclamation-circle"></i>
 						</div>
@@ -73,11 +75,11 @@
 						</div>
 					</div>
 					<div class="col">
-						<input class="form-control" type="password" placeholder="Repeat password" required>
+						<input class="form-control repeat-password" type="password" placeholder="Repeat password" required>
 						<div class="invalid-feedback">
-					 		<i class="fas fa-exclamation-circle"></i>
+					 		<i class="fas fa-exclamation-circle"></i> <h2 style="font-size:12px">Doesn't match</h2>
 						</div>
-						<div class="valid-feedback">
+						<div style="display: none" class="valid-feedback">
 							<i class="fas fa-check"></i>
 						</div>
 					</div>
@@ -87,6 +89,7 @@
 						<input type="submit" class="btn btn-primary" value="Sign Up!">
 					</div>
 				</div>
+				<a id="sign-up" href="/login">Log In</a>
 			</form>
 		</div>
 	</div>
@@ -97,6 +100,11 @@
   'use strict';
   window.addEventListener('load', function() {
     // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    // $('.password').on('change', function(){
+    // 	if($('.password')[0].value.contains(''))
+    // })
+
+
     var forms = document.getElementsByClassName('needs-validation');
     // Loop over them and prevent submission
     var validation = Array.prototype.filter.call(forms, function(form) {
@@ -105,6 +113,17 @@
           event.preventDefault();
           event.stopPropagation();
         }
+        if(($('.password')[0].value !== $('.repeat-password')[0].value)){
+      		event.preventDefault();
+
+      		console.log('invalid');
+      		$('.repeat-password').addClass('is-invalid');
+	      	
+      	}else{
+      		$('.repeat-password').removeClass('is-invalid');
+      		$('.repeat-password').addClass('is-valid');
+      	}
+
         form.classList.add('was-validated');
       }, false);
     });

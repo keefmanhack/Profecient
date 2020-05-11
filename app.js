@@ -21,8 +21,13 @@ mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 mongoose.set('useUnifiedTopology', true);
 
+let mongoUrl = process.env.MONGO_DB;
 
-mongoose.connect('mongodb+srv://keefmanjack:simple@firstdatabase-bdxnh.mongodb.net/Profecient?retryWrites=true&w=majority');
+if (mongoUrl) {
+	mongoose.connect(mongoUrl);
+}else{
+	mongoose.connect('mongodb+srv://keefmanjack:simple@firstdatabase-bdxnh.mongodb.net/Profecient?retryWrites=true&w=majority');
+}
 
 //passport configuration
 app.use(require("express-session")({

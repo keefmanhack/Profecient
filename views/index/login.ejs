@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Profecient</title>
+	<title>Proficient</title>
 	<link href="https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
  	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
@@ -13,14 +13,22 @@
 	<div class="login">
 		<div class="container">
 			<i class="fas fa-apple-alt"></i>
-			<h1>Log in to Profecient</h1>
+			<h1>Log in to Proficient</h1>
 
 
 			<form action="/login" method="POST">
 				<input class="form-control" type="text" name="username" placeholder="username">
 				<input class="form-control" type="password" name="password" placeholder="password">
 				<button class="btn btn-primary">Submit</button>
-				<a id="sign-up" href="/signup">Sign up</a>
+				<div class="row">
+					<div class="col">
+						<a id="sign-up" href="/signup">Sign up</a>
+					</div>
+					<div class="col">
+						<a id="forgot-password" href="/forgot">Forgot password?</a>
+					</div>
+				</div>
+				
 			</form>
 
 		</div>

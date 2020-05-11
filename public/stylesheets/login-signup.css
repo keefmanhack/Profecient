@@ -39,8 +39,14 @@ form div{
 }
 
 #sign-up{
-	font-size: 20px;
+	font-size: 1rem;
 	text-align: left;
 	color: black;
 	display: inherit;
+}
+
+#forgot-password{
+	color: black;
+    font-size: 1rem;
+    float: right;
 }
