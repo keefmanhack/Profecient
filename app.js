@@ -4,7 +4,8 @@ var express 			= require("express"),
     passport			= require('passport'),
     LocalStrategy		= require('passport-local'),
     bodyParser			= require('body-parser'),
-    methodOverride  	= require('method-override');
+    methodOverride  	= require('method-override'),
+    flash				= require('connect-flash');
 
 var indexRoutes			= require("./routes/index"),
 	semesterRoutes		= require("./routes/semester"),
@@ -42,6 +43,8 @@ passport.deserializeUser(User.deserializeUser());
 
 app.use(function(req, res, next){
 	res.locals.currentUser = req.user;
+	res.locals.error = req.flash("error");
+	res.locals.success = req.flash("success");
 	next();
 });
 
@@ -49,6 +52,8 @@ app.use(function(req, res, next){
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + '/public')); //for js scripts
 app.use(methodOverride("_method"));
+app.use(flash());
+
 
 app.use(indexRoutes);
 app.use("/class/:id/Assignment/", assignmentRoutes);

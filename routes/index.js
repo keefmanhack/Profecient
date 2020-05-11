@@ -43,7 +43,7 @@ router.post("/signup", function(req, res){
  });
 
 router.get("/login", function(req, res){
-	res.render("index/login");
+	res.render("index/login", {message: req.flash("error")});
 });
 
 router.post("/login", passport.authenticate("local", {
