@@ -17,6 +17,8 @@
 
 	<div class="login">
 		<div class="container">
+			<%- include("../partials/flashMessage") %>
+			
 			<i class="fas fa-apple-alt"></i>
 
 			<h1>Sign Up!</h1>
@@ -75,11 +77,11 @@
 						</div>
 					</div>
 					<div class="col">
-						<input class="form-control repeat-password" type="password" placeholder="Repeat password" required>
+						<input class="form-control repeat-password" type="password" name="confirm" placeholder="Repeat password" required>
 						<div class="invalid-feedback">
-					 		<i class="fas fa-exclamation-circle"></i> <h2 style="font-size:12px">Doesn't match</h2>
+					 		<i class="fas fa-exclamation-circle"></i>
 						</div>
-						<div style="display: none" class="valid-feedback">
+						<div class="valid-feedback">
 							<i class="fas fa-check"></i>
 						</div>
 					</div>
@@ -113,16 +115,6 @@
           event.preventDefault();
           event.stopPropagation();
         }
-        if(($('.password')[0].value !== $('.repeat-password')[0].value)){
-      		event.preventDefault();
-
-      		console.log('invalid');
-      		$('.repeat-password').addClass('is-invalid');
-	      	
-      	}else{
-      		$('.repeat-password').removeClass('is-invalid');
-      		$('.repeat-password').addClass('is-valid');
-      	}
 
         form.classList.add('was-validated');
       }, false);

@@ -1,6 +1,17 @@
 <%- include("../partials/header") %>
 
 <div class="home">
+	<%if(error && error.length>0){%>
+		<div class="alert alert-danger" role="alert">
+			<%=error%>
+		</div>
+	<%}%>
+
+	<%if(success && success.length>0){%>
+		<div class="alert alert-success" role="alert">
+			<%=success%>
+		</div>
+	<%}%>
 	<div class="left-section float-left">
 		<div class="week-agenda">
 			<h1 id="date"></h1>

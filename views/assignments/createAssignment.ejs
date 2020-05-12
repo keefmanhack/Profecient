@@ -7,9 +7,10 @@
 </script>
 
 <div class="newAssignment">
+	<%- include("../partials/flashMessage") %>
 	<h1>New Assignment for <span><%=classData.name%></span></h1>
 
-	<form class="needs-validation" action="/class/<%=classData._id%>/Assignment/new" method="POST" novalidate>
+	<form class="needs-validation" action="/class/<%=classData._id%>/Assignment/new" autocomplete="off" method="POST" novalidate>
 		<div class="row form-group">
 			<label class="col-form-label col-sm-3">Title:</label>
 			<div class="col-sm-9">

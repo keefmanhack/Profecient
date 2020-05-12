@@ -14,7 +14,6 @@ router.get("/calendar", middleWare.isLoggedIn, function(req, res){
 });
 
 router.get("/dashboard", middleWare.isLoggedIn, function(req, res){
-
 	User.findById(req.user._id).populate({path: 'semester', populate: {path: 'classes', populate: {path: 'assignments'}}}).exec(function(err, foundUser){
 		if(err){
 			console.log(err);
@@ -24,15 +23,6 @@ router.get("/dashboard", middleWare.isLoggedIn, function(req, res){
 	});
 });
 
-// router.get("/classes", middleWare.isLoggedIn, function(req, res){
-// 	Semester.find({}, function(err, allSemesters){
-// 		if(err){
-// 			console.log(err);
-// 		}else{
-// 			res.render("index/classes", {semesters: allSemesters, weekDays: weekDays});
-// 		}
-// 	})
-// })
 
 router.get("/newsemester", middleWare.isLoggedIn, function(req, res){
 	res.render("semester/newsemester");
@@ -103,6 +93,7 @@ router.post("/newsemester", middleWare.isLoggedIn, function(req, res){
 						}else{
 							foundUser.semester = newlyCreatedSemester;
 							foundUser.save();
+							req.flash('sucess', 'New semester created!')
 							res.redirect('/dashboard');
 						}
 					})
@@ -170,24 +161,12 @@ router.put("/semester/:id", middleWare.checkSemesterOwnership, function(req, res
 				});
 				ct++;
 			});
-		res.redirect('/dashboard');
+			req.flash('success', 'Semester updated')
+			res.redirect('/dashboard');
 		}
 	})
 });
 
-
-//cruDClasses
-// router.delete("/semester/:id", middleWare.isLoggedIn, function(req, res){
-// 	Classes.find({})
-
-// 	Semester.findByIdAndRemove(req.params.id, function(err){
-// 		if(err){
-// 			res.redirect("back");
-// 		}else{
-// 			res.redirect("/home");
-// 		}
-// 	});
-// });
 
 function createClasses(body){
 	var classes = [];

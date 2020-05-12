@@ -2,14 +2,15 @@
 
 <script type="text/javascript">
 	$( function() {
-    	$( "#dueDate" ).datepicker();
+    	$( "#dueDate" ).datepicker('setDate', new Date());
   	});
 </script>
 
 <div class="newAssignment">
+	<%- include("../partials/flashMessage") %>
 	<h1>Update Assignment for <span><%=classData.name%></span></h1>
 
-	<form class="needs-validation" action="/class/<%=classData._id%>/Assignment/<%=assignmentData._id%>/?_method=PUT" method="POST" novalidate>
+	<form class="needs-validation" action="/class/<%=classData._id%>/Assignment/<%=assignmentData._id%>/?_method=PUT" autocomplete="off" method="POST" novalidate>
 		<div class="row form-group">
 			<label class="col-form-label col-sm-3">Title:</label>
 			<div class="col-sm-9">

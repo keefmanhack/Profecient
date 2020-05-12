@@ -31,15 +31,22 @@ router.post("/signup", function(req, res){
 			firstName: req.body.firstName,
 			lastName: req.body.lastName
 		});
-	User.register(newUser, req.body.password, function(err, user){
-		if(err){
-			console.log(err);
-			res.redirect("back");
-		}
-		passport.authenticate('local')(req, res, function(){
-			res.redirect("/newsemester");
+	if(req.body.password !== req.body.confirm){
+		req.flash('error', 'Passwords do not match.');
+		res.redirect('/signup');
+	}else{
+
+		User.register(newUser, req.body.password, function(err, user){
+			if(err){
+				req.flash('error', 'User already exists with these credentials.');
+				res.redirect("/signup");
+			}
+			passport.authenticate('local')(req, res, function(){
+				req.flash('success', 'Welcome to Proficient ' + user.firstName + '. Start by creating your first class schedule!');
+				res.redirect("/newsemester");
+			});
 		});
-	});
+	}
  });
 
 router.get("/login", function(req, res){
@@ -48,14 +55,17 @@ router.get("/login", function(req, res){
 
 router.post("/login", passport.authenticate("local", {
 	successRedirect: "/dashboard",
-	failureRedirect: "back"
+	failureRedirect: "/login",
+	failureFlash: 'Invalid username or password.',
+	successFlash: 'Welcome!'
 }), function(req, res){
 
 });
 
 router.get('/sign_out', function(req, res){
 	req.logout();
-	res.redirect('/');
+	req.flash("success", "Logged you out!");
+	res.redirect('/login');
 });
 
 router.get('/forgot', function(req, res){
@@ -72,12 +82,9 @@ router.post('/forgot', function(req, res, next){
 		},
 		function(token, done) {
 			User.findOne({username: req.body.username}, function(err, user){
-				if(err){
-					console.log(err);
-				}
 
 				if(!user){
-					console.log('no user exists with this username');
+					req.flash('error', 'No user exists with this username.');
 					return res.redirect('/forgot');
 				}
 
@@ -113,13 +120,13 @@ router.post('/forgot', function(req, res, next){
 			};
 			smtpTransport.sendMail(mailOptions, function(err){
 				console.log('mail sent');
-				//add flash here
+				req.flash('success', 'Email with reset link has been sent to the inbox linked to your Proficient account!');
 				done(err, 'done');
 			});
 		}
 	], function(err){
 		if (err){
-			console.log(err);
+			req.flash('error', 'There was a problem access your account.');
 			return next(err);
 		} 
 		res.redirect('/forgot');
@@ -129,7 +136,8 @@ router.post('/forgot', function(req, res, next){
 router.get('/reset/:token', function(req, res){
 	User.findOne({resetPasswordToken: req.params.token, resetPasswordExpires: {$gt: Date.now()}}, function(err, user){
 		if(err){
-			console.log(err);
+			req.flash('error', 'Invalid address.');
+			res.redirect('/forgot');
 		}else{
 			res.render('index/resetPassword', {token: req.params.token});
 		}
@@ -141,7 +149,7 @@ router.post('/reset/:token', function(req, res){
 		function(done){
 			User.findOne({resetPasswordToken: req.params.token, resetPasswordExpires: {$gt: Date.now()}}, function(err, user){
 				if(!user){
-					console.log('no user');
+					flash('error', 'User does not exist or email link has timed out');
 					res.redirect('back');
 				}
 				if(req.body.password === req.body.confirm){
@@ -157,7 +165,7 @@ router.post('/reset/:token', function(req, res){
 						})
 					})
 				}else{
-					console.log('passwords do not match');
+					req.flash('error', 'Passwords do not match');
 					res.redirect('back');
 				} 
 			});
@@ -184,11 +192,12 @@ router.post('/reset/:token', function(req, res){
 			};
 			smtpTransport.sendMail(mailOptions, function(err){
 				console.log('mail sent');
-				//add flash here
+				req.flash('success', 'Your password has been reset!');
 				done(err, 'done');
 			});
 		},
 		function(err){
+			req.flash('There was a problem with reseting your password.');
 			res.redirect('/login');
 		}
 	]);
