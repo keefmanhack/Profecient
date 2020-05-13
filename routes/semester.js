@@ -139,32 +139,30 @@ router.put("/semester/:id", middleWare.checkSemesterOwnership, function(req, res
 	};
 
 
-
 	Semester.findByIdAndUpdate(req.params.id, updatedSemester, function(err, foundSemester){
 		if(err){
 			console.log(err);
+			req.flash('error', 'Could not update semester')
+		}else{
+			if(foundSemester && foundSemester.classes){
+				var newClassData = createClasses(req.body);
+				var ct = 0;
+
+				foundSemester.classes.forEach(function(o){
+					Classes.findByIdAndUpdate(o._id, newClassData[ct], function(err, foundClass){
+						if(err){
+							console.log(err);
+							req.flash('error', 'Could not update semester');
+						}else{
+							req.flash('success', 'Semester ' + foundSemester.name + ' was successfully updated');
+						}
+					});
+					ct++;
+				})
+			}
 		}
 	});
-
-	var ct =0;
-	var newClassData = createClasses(req.body); 
-	Classes.find({}, function(err, foundClasses){
-		if(err){
-			console.log(err);
-			res.redirect('/dashboard');
-		}else{
-			foundClasses.forEach(function(o){
-				Classes.findByIdAndUpdate(o._id, newClassData[ct], function(err, foundClass){
-					if(err){
-						console.log(err);
-					}
-				});
-				ct++;
-			});
-			req.flash('success', 'Semester updated')
-			res.redirect('/dashboard');
-		}
-	})
+	res.redirect('/dashboard');
 });
 
 
@@ -179,8 +177,7 @@ function createClasses(body){
 					instructor: body.class.instructor[i],
 					location: body.class.location[i],
 					days : createWeek(body.class, i),
-					time: createTime(body.class, i)
-				};
+					time: createTime(body.class, i)				};
 			classes.push(newClass);
 		}
 		return classes;
